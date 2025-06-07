@@ -51,6 +51,7 @@ class FluffyChatApp extends StatelessWidget {
         scrollBehavior: CustomScrollBehavior(),
         localizationsDelegates: L10n.localizationsDelegates,
         supportedLocales: L10n.supportedLocales,
+        locale: const Locale('fa'),
         routerConfig: router,
         builder: (context, child) => AppLockWidget(
           pincode: pincode,

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
+import 'package:fluffychat/config/app_config.dart';
 import 'package:fluffychat/l10n/l10n.dart';
 import 'package:fluffychat/widgets/layouts/login_scaffold.dart';
 import 'package:fluffychat/widgets/matrix.dart';
+import 'package:matrix/matrix.dart';
 import 'login.dart';
 
 class LoginView extends StatelessWidget {
@@ -13,13 +16,14 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = L10n.of(context);
 
     final homeserver = Matrix.of(context)
         .getLoginClient()
         .homeserver
         .toString()
         .replaceFirst('https://', '');
-    final title = L10n.of(context).logInTo(homeserver);
+    final title = l10n.logInTo(homeserver);
     final titleParts = title.split(homeserver);
 
     return LoginScaffold(
@@ -31,12 +35,12 @@ class LoginView extends StatelessWidget {
         title: Text.rich(
           TextSpan(
             children: [
-              TextSpan(text: titleParts.first),
-              TextSpan(
-                text: homeserver,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-              TextSpan(text: titleParts.last),
+              TextSpan(text: l10n.login),
+              // TextSpan(
+              //   text: homeserver,
+              //   style: const TextStyle(fontWeight: FontWeight.bold),
+              // ),
+              // TextSpan(text: titleParts.last),
             ],
           ),
           style: const TextStyle(fontSize: 18),
@@ -48,89 +52,239 @@ class LoginView extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               children: <Widget>[
-                Hero(
-                  tag: 'info-logo',
-                  child: Image.asset('assets/banner_transparent.png'),
-                ),
-                const SizedBox(height: 16),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                  child: TextField(
-                    readOnly: controller.loading,
-                    autocorrect: false,
-                    autofocus: true,
-                    onChanged: controller.checkWellKnownWithCoolDown,
-                    controller: controller.usernameController,
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.emailAddress,
-                    autofillHints:
-                        controller.loading ? null : [AutofillHints.username],
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.account_box_outlined),
-                      errorText: controller.usernameError,
-                      errorStyle: const TextStyle(color: Colors.orange),
-                      hintText: '@username:domain',
-                      labelText: L10n.of(context).emailOrUsername,
+                  padding: const EdgeInsets.all(32.0),
+                  child: Hero(
+                    tag: 'info-logo',
+                    child: ValueListenableBuilder<String>(
+                      valueListenable: AppConfig.loginBannerPathNotifier,
+                      builder: (context, bannerPath, _) {
+                        return Image.asset(
+                          bannerPath,
+                          errorBuilder: (context, error, stackTrace) {
+                            Logs().e('Failed to load image: $bannerPath', error, stackTrace);
+                            return const Icon(Icons.error);
+                          },
+                        );
+                      },
                     ),
                   ),
                 ),
                 const SizedBox(height: 16),
+                // Login method selector
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                  child: TextField(
-                    readOnly: controller.loading,
-                    autocorrect: false,
-                    autofillHints:
-                        controller.loading ? null : [AutofillHints.password],
-                    controller: controller.passwordController,
-                    textInputAction: TextInputAction.go,
-                    obscureText: !controller.showPassword,
-                    onSubmitted: (_) => controller.login(),
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.lock_outlined),
-                      errorText: controller.passwordError,
-                      errorStyle: const TextStyle(color: Colors.orange),
-                      suffixIcon: IconButton(
-                        onPressed: controller.toggleShowPassword,
-                        icon: Icon(
-                          controller.showPassword
-                              ? Icons.visibility_off_outlined
-                              : Icons.visibility_outlined,
-                          color: Colors.black,
+                  child: Material(
+                    borderRadius:
+                        BorderRadius.circular(AppConfig.borderRadius / 2),
+                    color: theme.colorScheme.onInverseSurface,
+                    child: DropdownButton<LoginMethod>(
+                      isExpanded: true,
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      borderRadius:
+                          BorderRadius.circular(AppConfig.borderRadius / 2),
+                      underline: const SizedBox.shrink(),
+                      value: controller.loginMethod,
+                      items: [
+                        DropdownMenuItem(
+                          value: LoginMethod.password,
+                          child: Row(
+                            children: [
+                              const Icon(Icons.lock_outline),
+                              const SizedBox(width: 8),
+                              Text(l10n.passwordLogin),
+                            ],
+                          ),
                         ),
-                      ),
-                      hintText: '******',
-                      labelText: L10n.of(context).password,
+                        DropdownMenuItem(
+                          value: LoginMethod.phone,
+                          child: Row(
+                            children: [
+                              const Icon(Icons.phone_outlined),
+                              const SizedBox(width: 8),
+                              Text(l10n.phoneLogin),
+                            ],
+                          ),
+                        ),
+                      ],
+                      onChanged: (value) {
+                        if (value != null) {
+                          controller.setLoginMethod(value);
+                        }
+                      },
                     ),
                   ),
                 ),
                 const SizedBox(height: 16),
+                // Username/Phone field
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  child: controller.loginMethod == LoginMethod.password
+                    ? TextField(
+                        readOnly: controller.loading,
+                        autocorrect: false,
+                        autofocus: true,
+                        onChanged: controller.checkWellKnownWithCoolDown,
+                        controller: controller.usernameController,
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.emailAddress,
+                        autofillHints: controller.loading
+                            ? null
+                            : [AutofillHints.username],
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.account_box_outlined),
+                          errorText: controller.usernameError,
+                          errorStyle: const TextStyle(color: Colors.orange),
+                          hintText: '@username:domain',
+                          labelText: l10n.emailOrUsername,
+                        ),
+                      )
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Directionality(
+                            textDirection: TextDirection.ltr,
+                            child: InternationalPhoneNumberInput(
+                              onInputChanged: (PhoneNumber number) {
+                                String phoneText = number.phoneNumber ?? '';
+                                if (phoneText.startsWith('+98')) {
+                                  phoneText = phoneText.substring(3);
+                                }
+                                controller.phoneController.text = phoneText;
+                                controller.checkWellKnownWithCoolDown(phoneText);
+                              },
+                              selectorConfig: const SelectorConfig(
+                                selectorType: PhoneInputSelectorType.DROPDOWN,
+                                setSelectorButtonAsPrefixIcon: true,
+                                leadingPadding: 8,
+                                trailingSpace: false,
+                              ),
+                              
+                              initialValue: PhoneNumber(
+                                isoCode: 'IR',
+                                phoneNumber: '',
+                              ),
+                              ignoreBlank: false,
+                              autoValidateMode: AutovalidateMode.disabled,
+                              selectorTextStyle: TextStyle(color: theme.colorScheme.onSurface),
+                              textFieldController: controller.phoneController,
+                              formatInput: true,
+                              keyboardType: TextInputType.phone,
+                              spaceBetweenSelectorAndTextField: 0,
+                              inputBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(AppConfig.borderRadius),
+                                borderSide: BorderSide(
+                                  color: controller.phoneError != null 
+                                    ? theme.colorScheme.error 
+                                    : theme.dividerColor,
+                                ),
+                              ),
+                              inputDecoration: InputDecoration(
+                                contentPadding: const EdgeInsets.only(left: 8),
+                                constraints: const BoxConstraints(minHeight: 50),
+                                hintText: l10n.phoneNumber,
+                                errorText: controller.phoneError,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(AppConfig.borderRadius),
+                                  borderSide: BorderSide(color: theme.dividerColor),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(AppConfig.borderRadius),
+                                  borderSide: BorderSide(color: theme.dividerColor),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(AppConfig.borderRadius),
+                                  borderSide: BorderSide(
+                                    color: AppConfig.primaryColor,
+                                    width: 2,
+                                  ),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(AppConfig.borderRadius),
+                                  borderSide: BorderSide(color: theme.colorScheme.error),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(AppConfig.borderRadius),
+                                  borderSide: BorderSide(
+                                    color: theme.colorScheme.error,
+                                    width: 2,
+                                  ),
+                                ),
+                                suffixIcon: IconButton(
+                                  icon: const Icon(Icons.send),
+                                  onPressed: controller.loading
+                                      ? null
+                                      : () => controller.sendSmsCode(context),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                ),
+                const SizedBox(height: 16),
+                // Password field (only show for password login)
+                if (controller.loginMethod == LoginMethod.password)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                    child: TextField(
+                      readOnly: controller.loading,
+                      autocorrect: false,
+                      autofillHints:
+                          controller.loading ? null : [AutofillHints.password],
+                      controller: controller.passwordController,
+                      textInputAction: TextInputAction.go,
+                      obscureText: !controller.showPassword,
+                      onSubmitted: (_) => controller.login(),
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.lock_outlined),
+                        errorText: controller.passwordError,
+                        errorStyle: const TextStyle(color: Colors.orange),
+                        
+                        suffixIcon: IconButton(
+                          onPressed: controller.toggleShowPassword,
+                          icon: Icon(
+                            controller.showPassword
+                                ? Icons.visibility_off_outlined
+                                : Icons.visibility_outlined,
+                            color: Colors.black,
+                          ),
+                        ),
+                        hintText: '******',
+                        labelText: l10n.password,
+                      ),
+                    ),
+                  ),
+                if (controller.loginMethod == LoginMethod.password)
+                  const SizedBox(height: 16),
+                // Login button
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24.0),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: theme.colorScheme.primary,
+                      backgroundColor: AppConfig.primaryColor,
                       foregroundColor: theme.colorScheme.onPrimary,
                     ),
                     onPressed: controller.loading ? null : controller.login,
                     child: controller.loading
                         ? const LinearProgressIndicator()
-                        : Text(L10n.of(context).login),
+                        : Text(l10n.login),
                   ),
                 ),
                 const SizedBox(height: 16),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                  child: TextButton(
-                    onPressed: controller.loading
-                        ? () {}
-                        : controller.passwordForgotten,
-                    style: TextButton.styleFrom(
-                      foregroundColor: theme.colorScheme.error,
+                if (controller.loginMethod == LoginMethod.password)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                    child: TextButton(
+                      onPressed: controller.loading
+                          ? () {}
+                          : controller.passwordForgotten,
+                      style: TextButton.styleFrom(
+                        foregroundColor: theme.colorScheme.error,
+                      ),
+                      child: Text(l10n.passwordForgotten),
                     ),
-                    child: Text(L10n.of(context).passwordForgotten),
                   ),
-                ),
                 const SizedBox(height: 16),
               ],
             ),

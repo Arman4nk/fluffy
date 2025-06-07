@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:universal_html/html.dart' as html;
 import 'package:url_launcher/url_launcher_string.dart';
 
+import 'package:fluffychat/config/app_config.dart';
+import 'package:fluffychat/config/setting_keys.dart';
 import 'package:fluffychat/l10n/l10n.dart';
 import 'package:fluffychat/utils/client_manager.dart';
 import 'package:fluffychat/utils/init_with_restore.dart';
@@ -27,8 +30,6 @@ import 'package:fluffychat/utils/voip_plugin.dart';
 import 'package:fluffychat/widgets/adaptive_dialogs/show_ok_cancel_alert_dialog.dart';
 import 'package:fluffychat/widgets/fluffy_chat_app.dart';
 import 'package:fluffychat/widgets/future_loading_dialog.dart';
-import '../config/app_config.dart';
-import '../config/setting_keys.dart';
 import '../pages/key_verification/key_verification_dialog.dart';
 import '../utils/account_bundles.dart';
 import '../utils/background_push.dart';
@@ -154,6 +155,7 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
 
   Client getLoginClient() {
     if (widget.clients.isNotEmpty && !client.isLogged()) {
+      client.homeserver = Uri.parse(AppConfig.defaultHomeserver);
       return client;
     }
     final candidate = _loginClientCandidate ??= ClientManager.createClient(
@@ -175,6 +177,7 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
         _loginClientCandidate = null;
         FluffyChatApp.router.go('/rooms');
       });
+    candidate.homeserver = Uri.parse(AppConfig.defaultHomeserver);
     return candidate;
   }
 
@@ -220,24 +223,26 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    initMatrix();
-    if (PlatformInfos.isWeb) {
-      initConfig().then((_) => initSettings());
-    } else {
+    // First load config, then initialize matrix and settings
+    initConfig().then((_) {
+      initMatrix();
       initSettings();
-    }
+    });
   }
 
   Future<void> initConfig() async {
     try {
-      final configJsonString =
-          utf8.decode((await http.get(Uri.parse('config.json'))).bodyBytes);
+      // Load only from assets for all platforms
+      final configJsonString = await DefaultAssetBundle.of(context).loadString('assets/config.json');
+      Logs().v('[ConfigLoader] Found config.json in assets: $configJsonString');
+
       final configJson = json.decode(configJsonString);
+      Logs().v('[ConfigLoader] Parsed config: $configJson');
       AppConfig.loadFromJson(configJson);
-    } on FormatException catch (_) {
-      Logs().v('[ConfigLoader] config.json not found');
-    } catch (e) {
-      Logs().v('[ConfigLoader] config.json not found', e);
+      Logs().v('[ConfigLoader] Successfully loaded config.json');
+      Logs().v('[ConfigLoader] Current login banner path: ${AppConfig.loginBannerPath}');
+    } catch (e, s) {
+      Logs().e('[ConfigLoader] Error loading config.json', e, s);
     }
   }
 
@@ -303,7 +308,7 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
         }
       } else {
         FluffyChatApp.router
-            .go(state == LoginState.loggedIn ? '/rooms' : '/home');
+            .go(state == LoginState.loggedIn ? '/rooms' : '/login');
       }
     });
     onUiaRequest[name] ??= c.onUiaRequest.stream.listen(uiaRequestHandler);

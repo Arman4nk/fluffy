@@ -1643,6 +1643,16 @@
         "type": "String",
         "placeholders": {}
     },
+    "pleaseEnterYourPhone": "Please enter your phone number",
+    "@pleaseEnterYourPhone": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "pleaseEnterOTP": "Login with One-Time Password",
+    "@pleaseEnterOTP": {
+        "type": "String",
+        "placeholders": {}
+    },
     "pleaseEnterYourPin": "Please enter your pin",
     "@pleaseEnterYourPin": {
         "type": "String",
@@ -3237,7 +3247,69 @@
     "approve": "Approve",
     "youHaveKnocked": "You have knocked",
     "pleaseWaitUntilInvited": "Please wait now, until someone from the room invites you.",
+    "passwordLogin": "Password Login",
+    "phoneLogin": "Phone Login",
+    "phoneNumber": "Phone Number",
+    "otp": "OTP Code",
+    "pleaseWaitUntilInvited": "Please wait now, until someone from the room invites you.",
     "commandHint_logout": "Logout your current device",
     "commandHint_logoutall": "Logout all active devices",
-    "displayNavigationRail": "Show navigation rail on mobile"
+    "displayNavigationRail": "Show navigation rail on mobile",
+    "wrongNumber": "Wrong number? Edit number",
+    "@wrongNumber": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "resendCode": "Didn't receive the code? Resend",
+    "@resendCode": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "resendCodeIn": "Didn't receive the code? Resend ({time})",
+    "@resendCodeIn": {
+        "type": "String",
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "otpCodeSentTo": "Enter the code sent to {phoneNumber}",
+    "@otpCodeSentTo": {
+        "type": "String",
+        "placeholders": {
+            "phoneNumber": {
+                "type": "String"
+            }
+        }
+    },
+    "resendCodePrefix": "Didn't receive the code?",
+    "@resendCodePrefix": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "resendCodeAction": "Resend",
+    "@resendCodeAction": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "resendCodeWithTime": "Didn't receive the code? Resend ({time})",
+    "@resendCodeWithTime": {
+        "type": "String",
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "wrongNumberPrefix": "Wrong number?",
+    "@wrongNumberPrefix": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "wrongNumberAction": "Edit number",
+    "@wrongNumberAction": {
+        "type": "String",
+        "placeholders": {}
+    }
 }

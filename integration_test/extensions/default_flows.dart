@@ -25,7 +25,7 @@ extension DefaultFlowExtensions on WidgetTester {
     // getting the placeholder in place
     await tester.tap(find.byIcon(Icons.search));
     await tester.pumpAndSettle();
-    await tester.enterText(input, homeserver);
+    // await tester.enterText(input, homeserver);
     await tester.pumpAndSettle();
     await tester.testTextInput.receiveAction(TextInputAction.done);
     await tester.pumpAndSettle();

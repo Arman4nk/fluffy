@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:matrix/matrix.dart';
+import 'package:flutter/foundation.dart';
 
 abstract class AppConfig {
   static String _applicationName = 'FluffyChat';
@@ -9,7 +10,7 @@ abstract class AppConfig {
   static String? _applicationWelcomeMessage;
 
   static String? get applicationWelcomeMessage => _applicationWelcomeMessage;
-  static String _defaultHomeserver = 'matrix.org';
+  static String _defaultHomeserver = 'https://core.gitanegaran.ir';
 
   static String get defaultHomeserver => _defaultHomeserver;
   static double fontSizeFactor = 1;
@@ -18,7 +19,7 @@ abstract class AppConfig {
   static const double messageFontSize = 16.0;
   static const bool allowOtherHomeservers = true;
   static const bool enableRegistration = true;
-  static const Color primaryColor = Color(0xFF5625BA);
+  static const Color primaryColor = Color(0xFF576dd5);
   static const Color primaryColorLight = Color(0xFFCCBDEA);
   static const Color secondaryColor = Color(0xFF41a2bc);
   static String _privacyUrl =
@@ -75,8 +76,13 @@ abstract class AppConfig {
     host: 'servers.joinmatrix.org',
     path: 'servers.json',
   );
+  static String _loginBannerPath = 'assets/chatsi_login_banner.png';
+  static final ValueNotifier<String> loginBannerPathNotifier = ValueNotifier(_loginBannerPath);
+
+  static String get loginBannerPath => _loginBannerPath;
 
   static void loadFromJson(Map<String, dynamic> json) {
+    Logs().v('[AppConfig] Loading config from JSON: $json');
     if (json['chat_color'] != null) {
       try {
         colorSchemeSeed = Color(json['chat_color']);
@@ -89,6 +95,7 @@ abstract class AppConfig {
     }
     if (json['application_name'] is String) {
       _applicationName = json['application_name'];
+      Logs().v('[AppConfig] Set application name to: $_applicationName');
     }
     if (json['application_welcome_message'] is String) {
       _applicationWelcomeMessage = json['application_welcome_message'];
@@ -110,6 +117,12 @@ abstract class AppConfig {
     }
     if (json['hide_unknown_events'] is bool) {
       hideUnknownEvents = json['hide_unknown_events'];
+    }
+    if (json['login_banner_path'] is String) {
+      final newPath = json['login_banner_path'];
+      Logs().v('[AppConfig] Updating login banner path from $_loginBannerPath to $newPath');
+      _loginBannerPath = newPath;
+      loginBannerPathNotifier.value = newPath;
     }
   }
 }

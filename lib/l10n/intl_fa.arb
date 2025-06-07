@@ -2510,5 +2510,71 @@
     "pleaseTryAgainLaterOrChooseDifferentServer": "لطفا بعدا تلاش کنید یا سرور دیگری انتخاب کنید.",
     "@pleaseTryAgainLaterOrChooseDifferentServer": {},
     "notAnImage": "یک فایل تصویری نیست.",
-    "@notAnImage": {}
+    "@notAnImage": {},
+    "passwordLogin": "ورود با رمز عبور",
+    "phoneLogin": "ورود با تلفن همراه",
+    "phoneNumber": "شماره تلفن",
+    "otp": "کد یکبار مصرف",
+    "wrongNumber": "شماره اشتباه است؟ اصلاح شماره",
+    "@wrongNumber": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "resendCode": "کد را دریافت نکردید؟ ارسال مجدد",
+    "@resendCode": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "resendCodeIn": "کد را دریافت نکردید؟ ارسال مجدد ({time})",
+    "@resendCodeIn": {
+        "type": "String",
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "pleaseEnterOTP": "ورود با رمز یکبار مصرف",
+    "@pleaseEnterOTP": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "otpCodeSentTo": "کد ارسال شده به {phoneNumber} را وارد نمایید",
+    "@otpCodeSentTo": {
+        "type": "String",
+        "placeholders": {
+            "phoneNumber": {
+                "type": "String"
+            }
+        }
+    },
+    "resendCodePrefix": "کد را دریافت نکردید؟",
+    "@resendCodePrefix": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "resendCodeAction": "ارسال مجدد",
+    "@resendCodeAction": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "resendCodeWithTime": "کد را دریافت نکردید؟ ارسال مجدد ({time})",
+    "@resendCodeWithTime": {
+        "type": "String",
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "wrongNumberPrefix": "شماره اشتباه است؟",
+    "@wrongNumberPrefix": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "wrongNumberAction": "اصلاح شماره",
+    "@wrongNumberAction": {
+        "type": "String",
+        "placeholders": {}
+    }
 }

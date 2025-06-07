@@ -51,6 +51,7 @@ abstract class FluffyThemes {
       useMaterial3: true,
       brightness: brightness,
       colorScheme: colorScheme,
+      fontFamily: 'IRANYekanXFaNumber',
       dividerColor: brightness == Brightness.dark
           ? colorScheme.surfaceContainerHighest
           : colorScheme.surfaceContainer,
@@ -99,6 +100,9 @@ abstract class FluffyThemes {
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
+          textStyle: const TextStyle(
+            fontFamily: 'IRANYekanXFaNumber',
+          ),
           side: BorderSide(
             width: 1,
             color: colorScheme.primary,
@@ -121,7 +125,17 @@ abstract class FluffyThemes {
           foregroundColor: colorScheme.onSecondaryContainer,
           elevation: 0,
           padding: const EdgeInsets.all(16),
-          textStyle: const TextStyle(fontSize: 16),
+          textStyle: const TextStyle(
+            fontFamily: 'IRANYekanXFaNumber',
+            fontSize: 16,
+          ),
+        ),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          textStyle: const TextStyle(
+            fontFamily: 'IRANYekanXFaNumber',
+          ),
         ),
       ),
     );
