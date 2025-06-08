@@ -71,7 +71,7 @@ class _OtpVerificationState extends State<OtpVerification> {
   void _startTimer() {
     _timer?.cancel();
     setState(() {
-      _timeLeft = 10;
+      _timeLeft = 120;
       _canResend = false;
     });
     
