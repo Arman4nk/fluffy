@@ -159,7 +159,14 @@ class LoginController extends State<Login> with ChangeNotifier {
         return;
       }
 
-      final formattedPhone = phoneController.text.formatIranPhoneNumber();
+      final formattedPhone = await phoneController.text.formatInternationalPhoneNumber();
+      if (formattedPhone == null) {
+        setState(() {
+          phoneError = L10n.of(context).pleaseEnterYourPhone;
+          loading = false;
+        });
+        return;
+      }
       final result = await MatrixAuthApi.sendSmsCode(formattedPhone);
 
       if (!mounted) return;

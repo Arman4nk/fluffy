@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:phone_numbers_parser/phone_numbers_parser.dart';
+import 'package:phone_form_field/phone_form_field.dart';
 
 import 'package:fluffychat/config/app_config.dart';
 import 'package:fluffychat/l10n/l10n.dart';
@@ -144,71 +145,18 @@ class LoginView extends StatelessWidget {
                         children: [
                           Directionality(
                             textDirection: TextDirection.ltr,
-                            child: InternationalPhoneNumberInput(
-                              onInputChanged: (PhoneNumber number) {
-                                String phoneText = number.phoneNumber ?? '';
-                                if (phoneText.startsWith('+98')) {
-                                  phoneText = phoneText.substring(3);
-                                }
-                                controller.phoneController.text = phoneText;
-                                controller.checkWellKnownWithCoolDown(phoneText);
-                              },
-                              selectorConfig: const SelectorConfig(
-                                selectorType: PhoneInputSelectorType.DROPDOWN,
-                                setSelectorButtonAsPrefixIcon: true,
-                                leadingPadding: 8,
-                                trailingSpace: false,
-                              ),
-                              
-                              initialValue: PhoneNumber(
-                                isoCode: 'IR',
-                                phoneNumber: '',
-                              ),
-                              ignoreBlank: false,
-                              autoValidateMode: AutovalidateMode.disabled,
-                              selectorTextStyle: TextStyle(color: theme.colorScheme.onSurface),
-                              textFieldController: controller.phoneController,
-                              formatInput: true,
-                              keyboardType: TextInputType.phone,
-                              spaceBetweenSelectorAndTextField: 0,
-                              inputBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(AppConfig.borderRadius),
-                                borderSide: BorderSide(
-                                  color: controller.phoneError != null 
-                                    ? theme.colorScheme.error 
-                                    : theme.dividerColor,
+                            child: PhoneFormField(
+                              controller: PhoneController(
+                                PhoneNumber(
+                                  isoCode: IsoCode.IR,
+                                  nsn: '',
                                 ),
                               ),
-                              inputDecoration: InputDecoration(
-                                contentPadding: const EdgeInsets.only(left: 8),
-                                constraints: const BoxConstraints(minHeight: 50),
-                                hintText: l10n.phoneNumber,
+                              decoration: InputDecoration(
+                                hintText: L10n.of(context).phoneNumber,
                                 errorText: controller.phoneError,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(AppConfig.borderRadius),
-                                  borderSide: BorderSide(color: theme.dividerColor),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(AppConfig.borderRadius),
-                                  borderSide: BorderSide(color: theme.dividerColor),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(AppConfig.borderRadius),
-                                  borderSide: BorderSide(
-                                    color: AppConfig.primaryColor,
-                                    width: 2,
-                                  ),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(AppConfig.borderRadius),
-                                  borderSide: BorderSide(color: theme.colorScheme.error),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(AppConfig.borderRadius),
-                                  borderSide: BorderSide(
-                                    color: theme.colorScheme.error,
-                                    width: 2,
-                                  ),
                                 ),
                                 suffixIcon: IconButton(
                                   icon: const Icon(Icons.send),
@@ -217,6 +165,16 @@ class LoginView extends StatelessWidget {
                                       : () => controller.sendSmsCode(context),
                                 ),
                               ),
+                              onChanged: (phone) {
+                                if (phone != null && phone.isValid()) {
+                                  controller.phoneController.text = phone.international;
+                                  controller.checkWellKnownWithCoolDown(phone.international);
+                                }
+                              },
+                              defaultCountry: IsoCode.IR,
+                              showFlagInInput: true,
+                              flagSize: 16,
+                              countrySelectorNavigator: CountrySelectorNavigator.bottomSheet(),
                             ),
                           ),
                         ],

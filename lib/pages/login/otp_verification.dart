@@ -117,9 +117,9 @@ class _OtpVerificationState extends State<OtpVerification> {
         try {
           final loginResponse = await MatrixAuthApi.customPhoneLogin(
             client: client,
-            phoneNumber: widget.phoneNumber.formatIranPhoneNumber(),
-            clientSecret: _currentClientSecret ?? widget.clientSecret, // Use the current client secret
-            sid: _currentSid ?? widget.sid, // Use the current sid
+            phoneNumber: await widget.phoneNumber.formatInternationalPhoneNumber() ?? widget.phoneNumber,
+            clientSecret: _currentClientSecret ?? widget.clientSecret,
+            sid: _currentSid ?? widget.sid,
           );
 
           if (mounted) {
@@ -167,7 +167,7 @@ class _OtpVerificationState extends State<OtpVerification> {
 
     try {
       final response = await MatrixAuthApi.sendSmsCode(
-        widget.phoneNumber.formatIranPhoneNumber(),
+        await widget.phoneNumber.formatInternationalPhoneNumber() ?? widget.phoneNumber,
       );
 
       if (response != null) {
@@ -225,9 +225,10 @@ class _OtpVerificationState extends State<OtpVerification> {
               ),
               const SizedBox(height: 8),
               Text(
-                l10n.otpCodeSentTo(widget.phoneNumber),
+                l10n.otpCodeSentTo(widget.phoneNumber.replaceFirst('+', '')),
                 style: theme.textTheme.bodyLarge,
                 textAlign: TextAlign.start,
+                textDirection: TextDirection.ltr,
               ),
               const SizedBox(height: 32),
               Directionality(

@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import '../utils/platform_infos.dart';
 import 'package:uuid/uuid.dart';
 import 'package:fluffychat/config/app_config.dart';
+import 'package:phone_numbers_parser/phone_numbers_parser.dart';
 
 class MatrixAuthApi {
   static int sendAttempt = 0;
@@ -126,14 +127,23 @@ class MatrixAuthApi {
 }
 
 extension PhoneNumberFormatter on String {
-  String formatIranPhoneNumber() {
-    String digits = replaceAll(RegExp(r'[^\d]'), '');
-    if (digits.startsWith('0')) {
-      digits = '98${digits.substring(1)}';
+  /// Formats a phone number to international format
+  Future<String?> formatInternationalPhoneNumber() async {
+    try {
+      final phoneNumber = PhoneNumber.parse(this);
+      return phoneNumber.international;
+    } catch (e) {
+      return null;
     }
-    if (!digits.startsWith('98')) {
-      digits = '98$digits';
+  }
+
+  /// Validates if the phone number is valid
+  Future<bool> isValidPhoneNumber() async {
+    try {
+      final phoneNumber = PhoneNumber.parse(this);
+      return phoneNumber.isValid();
+    } catch (e) {
+      return false;
     }
-    return digits;
   }
 }
