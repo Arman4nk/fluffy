@@ -2576,5 +2576,47 @@
     "@wrongNumberAction": {
         "type": "String",
         "placeholders": {}
-    }
+    },
+    "storeInServer": "ذخیره کلید در سرور",
+    "@storeInServer": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "storeInServerDescription": "کلید امنیتی خود را در سرور ذخیره کنید تا بازیابی آن آسان‌تر باشد",
+    "@storeInServerDescription": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "storeInServerSuccess": "کلید امنیتی با موفقیت در سرور ذخیره شد",
+    "@storeInServerSuccess": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "storeInServerSuccessDescription": "با ذخیره کلید بازیابی در سرور، دیگر نگران از دست دادن دسترسی به پیام‌های رمزنگاری شده خود نخواهید بود. کلید شما به صورت امن ذخیره شده و هر زمان که نیاز باشد می‌توانید از آن برای بازیابی پیام‌های خود استفاده کنید.",
+    "@storeInServerSuccessDescription": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "storeInServerError": "ذخیره کلید امنیتی در سرور با خطا مواجه شد",
+    "@storeInServerError": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "pleaseEnterYourKey": "لطفا کلید خود را وارد کنید",
+    "@pleaseEnterYourKey": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "securityKey": "عبارت امنیتی",
+    "@securityKey": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "secondPassword": "رمز دوم",
+    "@secondPassword": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "keyType": "نوع کلید",
+    "storageOptions": "گزینه‌های ذخیره‌سازی"
 }

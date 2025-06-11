@@ -124,6 +124,68 @@ class MatrixAuthApi {
       throw MatrixException.fromJson({'error': e.toString()});
     }
   }
+
+  static Future<Map<String, dynamic>> getSecurityPasswords({
+    required String accessToken,
+  }) async {
+    try {
+      final response = await http.get(
+        Uri.parse('${AppConfig.defaultHomeserver}/_matrix/client/v3/account/security_passwords'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $accessToken',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return {
+          'user_id': data['user_id'],
+          'second_password': data['second_password'],
+          'security_key': data['security_key'],
+        };
+      } else {
+        final error = jsonDecode(response.body);
+        throw MatrixException.fromJson(error);
+      }
+    } catch (e) {
+      debugPrint('Error fetching security passwords: $e');
+      throw MatrixException.fromJson({'error': e.toString()});
+    }
+  }
+
+  static Future<void> setSecurityPasswords({
+    required String accessToken,
+    String? secondPassword,
+    String? securityKey,
+  }) async {
+    try {
+      final Map<String, String> body = {};
+      if (secondPassword != null) {
+        body['second_password'] = secondPassword;
+      }
+      if (securityKey != null) {
+        body['security_key'] = securityKey;
+      }
+
+      final response = await http.post(
+        Uri.parse('${AppConfig.defaultHomeserver}/_matrix/client/v3/account/security_passwords'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $accessToken',
+        },
+        body: jsonEncode(body),
+      );
+
+      if (response.statusCode != 200) {
+        final error = jsonDecode(response.body);
+        throw MatrixException.fromJson(error);
+      }
+    } catch (e) {
+      debugPrint('Error setting security passwords: $e');
+      throw MatrixException.fromJson({'error': e.toString()});
+    }
+  }
 }
 
 extension PhoneNumberFormatter on String {

@@ -3311,5 +3311,47 @@
     "@wrongNumberAction": {
         "type": "String",
         "placeholders": {}
-    }
+    },
+    "storeInServer": "Store key on server",
+    "@storeInServer": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "storeInServerDescription": "Store your security key on the server for easier recovery",
+    "@storeInServerDescription": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "storeInServerSuccess": "Security key successfully stored on server",
+    "@storeInServerSuccess": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "storeInServerSuccessDescription": "By storing your recovery key on the server, you won't need to worry about losing access to your encrypted messages. Your key is securely stored and can be used to recover your messages whenever needed.",
+    "@storeInServerSuccessDescription": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "storeInServerError": "Failed to store security key on server",
+    "@storeInServerError": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "pleaseEnterYourKey": "Please enter your key",
+    "@pleaseEnterYourKey": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "securityKey": "Security Key",
+    "@securityKey": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "secondPassword": "Second Password",
+    "@secondPassword": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "keyType": "Key Type",
+    "storageOptions": "Storage Options"
 }

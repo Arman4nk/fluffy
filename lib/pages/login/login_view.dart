@@ -166,7 +166,7 @@ class LoginView extends StatelessWidget {
                                 ),
                               ),
                               onChanged: (phone) {
-                                if (phone != null && phone.isValid()) {
+                                if (phone != null /* && phone.isValid() */) {
                                   controller.phoneController.text = phone.international;
                                   controller.checkWellKnownWithCoolDown(phone.international);
                                 }
