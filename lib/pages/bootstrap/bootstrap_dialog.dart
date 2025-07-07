@@ -77,6 +77,7 @@ class BootstrapDialogState extends State<BootstrapDialog> {
   @override
   void initState() {
     super.initState();
+    debugPrint('[BootstrapDialog] initState: wipe=${widget.wipe}, client=${widget.client.userID}');
     _createBootstrap(widget.wipe);
     _fetchPasswordFromServer();
   }
@@ -93,29 +94,34 @@ class BootstrapDialogState extends State<BootstrapDialog> {
   }
 
   void _fetchPasswordFromServer() async {
+    debugPrint('[BootstrapDialog] _fetchPasswordFromServer: called');
     try {
       final passwords = await MatrixAuthApi.getSecurityPasswords(
         accessToken: widget.client.accessToken!,
       );
-      print('Fetched passwords from server:');
-      print(passwords);
+      debugPrint('[BootstrapDialog] Fetched passwords from server: $passwords');
       final secondPassword = passwords['second_password']?.toString();
       final securityKey = passwords['security_key']?.toString();
+      debugPrint('[BootstrapDialog] Current text field: "${_recoveryKeyTextEditingController.text}"');
       if (_recoveryKeyTextEditingController.text.isEmpty && mounted) {
         if (secondPassword != null && secondPassword.isNotEmpty) {
+          debugPrint('[BootstrapDialog] Pre-filling with second_password');
           setState(() {
             _keyType = 'second_password';
             _recoveryKeyTextEditingController.text = secondPassword;
           });
         } else if (securityKey != null && securityKey.isNotEmpty) {
+          debugPrint('[BootstrapDialog] Pre-filling with security_key');
           setState(() {
             _keyType = 'security_key';
             _recoveryKeyTextEditingController.text = securityKey;
           });
+        } else {
+          debugPrint('[BootstrapDialog] No passwords to pre-fill');
         }
       }
     } catch (e) {
-      print('Error fetching passwords from server: $e');
+      debugPrint('[BootstrapDialog] Error fetching passwords from server: $e');
     }
   }
 
@@ -182,6 +188,7 @@ class BootstrapDialogState extends State<BootstrapDialog> {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint('[BootstrapDialog] build: state=${bootstrap.state}, keyType=$_keyType, storeInServer=$_storeInServer, textField="${_recoveryKeyTextEditingController.text}"');
     final theme = Theme.of(context);
     _wipe ??= widget.wipe;
     final buttons = <Widget>[];
@@ -250,20 +257,20 @@ class BootstrapDialogState extends State<BootstrapDialog> {
                     Text(L10n.of(context).storeInSecureStorageDescription),
                   ),
                 const SizedBox(height: 16),
-                 CheckboxListTile.adaptive(
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    value: _storeInServer,
-                    activeColor: theme.colorScheme.primary,
-                    onChanged: _isStoringInServer
-                        ? null
-                        : (b) {
-                            setState(() {
-                              _storeInServer = b;
-                            });
-                          },
-                    title: Text(L10n.of(context).storeInServer),
-                    subtitle: Text(L10n.of(context).storeInServerSuccessDescription),
-                  ),
+                CheckboxListTile.adaptive(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  value: _storeInServer,
+                  activeColor: theme.colorScheme.primary,
+                  onChanged: _isStoringInServer
+                      ? null
+                      : (b) {
+                    setState(() {
+                      _storeInServer = b;
+                    });
+                  },
+                  title: Text(L10n.of(context).storeInServer),
+                  subtitle: Text(L10n.of(context).storeInServerSuccessDescription),
+                ),
                 const SizedBox(height: 16),
                 CheckboxListTile.adaptive(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -278,18 +285,18 @@ class BootstrapDialogState extends State<BootstrapDialog> {
                 ),
                 const SizedBox(height: 16),
                 ElevatedButton.icon(
-                  icon:_isStoringInServer
-                      ? const SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: CircularProgressIndicator.adaptive(strokeWidth: 2),
-                  )
-                      : const Icon(Icons.check_outlined),
-                  label: Text(L10n.of(context).next),
-                  onPressed:
-                  (_recoveryKeyCopied || _storeInSecureStorage == true || _storeInServer == true) && !_isStoringInServer
-                      ? () => _handleNextButton(key!)
-                      : null
+                    icon:_isStoringInServer
+                        ? const SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: CircularProgressIndicator.adaptive(strokeWidth: 2),
+                    )
+                        : const Icon(Icons.check_outlined),
+                    label: Text(L10n.of(context).next),
+                    onPressed:
+                    (_recoveryKeyCopied || _storeInSecureStorage == true || _storeInServer == true) && !_isStoringInServer
+                        ? () => _handleNextButton(key!)
+                        : null
                 ),
               ],
             ),
@@ -356,7 +363,6 @@ class BootstrapDialogState extends State<BootstrapDialog> {
                       ),
                     ),
                     const Divider(height: 32),
-                    // Unified card for text field, segment, and checkbox
                     Card(
                       elevation: 0,
                       color: theme.colorScheme.surfaceVariant.withOpacity(0.3),
@@ -365,6 +371,13 @@ class BootstrapDialogState extends State<BootstrapDialog> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Text(
+                              L10n.of(context).recoveryKey,
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                color: theme.colorScheme.primary,
+                              ),
+                            ),
+                            const SizedBox(height: 16),
                             TextField(
                               minLines: 1,
                               maxLines: 2,
@@ -387,43 +400,80 @@ class BootstrapDialogState extends State<BootstrapDialog> {
                                 errorMaxLines: 2,
                               ),
                             ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    // Unified card for segment, and checkbox
+                    Card(
+                      elevation: 0,
+                      color: theme.colorScheme.surfaceVariant.withOpacity(0.3),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              L10n.of(context).storageOptions,
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                color: theme.colorScheme.primary,
+                              ),
+                            ),
                             const SizedBox(height: 16),
                             CheckboxListTile(
                               contentPadding: EdgeInsets.zero,
                               title: Text(L10n.of(context).storeInServer),
+                              subtitle: Text(L10n.of(context).storeInServerDescription),
                               value: _storeInServer,
-                              onChanged: _isStoringInServer
-                                  ? null
-                                  : (b) {
-                                      setState(() {
-                                        _storeInServer = b;
-                                      });
-                                    },
+                              onChanged: (value) {
+                                setState(() {
+                                  _storeInServer = value ?? false;
+                                  // Reset key type when disabling server storage
+                                  if (!value!) {
+                                    _keyType = 'security_key';
+                                  }
+                                });
+                              },
                             ),
                             if (_storeInServer == true) ...[
-                              const SizedBox(height: 16),
-                              SizedBox(
-                                width: double.infinity,
-                                child: SegmentedButton<String>(
-                                  segments: [
-                                    ButtonSegment<String>(
-                                      value: 'security_key',
-                                      label: Text(L10n.of(context).securityKey),
-                                      icon: const Icon(Icons.key),
-                                    ),
-                                    ButtonSegment<String>(
-                                      value: 'second_password',
-                                      label: Text(L10n.of(context).secondPassword),
-                                      icon: const Icon(Icons.password),
-                                    ),
-                                  ],
-                                  selected: {_keyType},
-                                  onSelectionChanged: (Set<String> newSelection) {
-                                    setState(() {
-                                      _keyType = newSelection.first;
-                                    });
-                                  },
+                              const Divider(height: 32),
+                              Text(
+                                L10n.of(context).keyType,
+                                style: theme.textTheme.titleMedium?.copyWith(
+                                  color: theme.colorScheme.primary,
                                 ),
+                              ),
+                              const SizedBox(height: 8),
+                              SegmentedButton<String>(
+                                style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                                        (Set<MaterialState> states) {
+                                      if (states.contains(MaterialState.selected)) {
+                                        return theme.colorScheme.primaryContainer;
+                                      }
+                                      return theme.colorScheme.surface;
+                                    },
+                                  ),
+                                ),
+                                segments: [
+                                  ButtonSegment<String>(
+                                    value: 'security_key',
+                                    label: Text(L10n.of(context).securityKey),
+                                    icon: const Icon(Icons.key),
+                                  ),
+                                  ButtonSegment<String>(
+                                    value: 'second_password',
+                                    label: Text(L10n.of(context).secondPassword),
+                                    icon: const Icon(Icons.password),
+                                  ),
+                                ],
+                                selected: {_keyType},
+                                onSelectionChanged: (Set<String> newSelection) {
+                                  setState(() {
+                                    _keyType = newSelection.first;
+                                  });
+                                },
                               ),
                             ],
                           ],
@@ -444,75 +494,84 @@ class BootstrapDialogState extends State<BootstrapDialog> {
                       onPressed: _recoveryKeyInputLoading
                           ? null
                           : () async {
-                              setState(() {
-                                _recoveryKeyInputError = null;
-                                _recoveryKeyInputLoading = true;
-                              });
-                              try {
-                                final key = _recoveryKeyTextEditingController
-                                    .text
-                                    .trim();
-                                if (key.isEmpty) return;
-                                await bootstrap.newSsssKey!.unlock(
-                                  keyOrPassphrase: key,
-                                );
-                                await bootstrap.openExistingSsss();
-                                Logs().d('SSSS unlocked');
-                                if (bootstrap.encryption.crossSigning.enabled) {
-                                  Logs().v(
-                                    'Cross signing is already enabled. Try to self-sign',
-                                  );
-                                  try {
-                                    await bootstrap
-                                        .client.encryption!.crossSigning
-                                        .selfSign(recoveryKey: key);
-                                    Logs().d('Successful selfsigned');
-                                  } catch (e, s) {
-                                    Logs().e(
-                                      'Unable to self sign with recovery key after successfully open existing SSSS',
-                                      e,
-                                      s,
-                                    );
-                                  }
-                                }
-                                // Set password on server if checkbox is checked
-                                if (_storeInServer == true) {
-                                  try {
-                                    await MatrixAuthApi.setSecurityPasswords(
-                                      accessToken: widget.client.accessToken!,
-                                      securityKey: _keyType == 'security_key' ? key : null,
-                                      secondPassword: _keyType == 'second_password' ? key : null,
-                                    );
-                                    print('Set password on server: type=$_keyType, value=$key');
-                                  } catch (e) {
-                                    print('Error setting password on server: $e');
-                                  }
-                                }
-                              } on InvalidPassphraseException catch (e) {
-                                setState(
-                                  () => _recoveryKeyInputError =
-                                      e.toLocalizedString(context),
-                                );
-                              } on FormatException catch (_) {
-                                setState(
-                                  () => _recoveryKeyInputError =
-                                      L10n.of(context).wrongRecoveryKey,
-                                );
-                              } catch (e, s) {
-                                ErrorReporter(
-                                  context,
-                                  'Unable to open SSSS with recovery key',
-                                ).onErrorCallback(e, s);
-                                setState(
-                                  () => _recoveryKeyInputError =
-                                      e.toLocalizedString(context),
-                                );
-                              } finally {
-                                setState(
-                                  () => _recoveryKeyInputLoading = false,
-                                );
-                              }
-                            },
+                        debugPrint('[BootstrapDialog] Unlock button pressed. keyType=$_keyType, textField="${_recoveryKeyTextEditingController.text}"');
+                        setState(() {
+                          _recoveryKeyInputError = null;
+                          _recoveryKeyInputLoading = true;
+                        });
+                        try {
+                          final key = _recoveryKeyTextEditingController
+                              .text
+                              .trim();
+                          if (key.isEmpty) {
+                            debugPrint('[BootstrapDialog] Unlock attempt with empty key');
+                            return;
+                          }
+                          debugPrint('[BootstrapDialog] Attempting SSSS unlock...');
+                          await bootstrap.newSsssKey!.unlock(
+                            keyOrPassphrase: key,
+                          );
+                          await bootstrap.openExistingSsss();
+                          Logs().d('SSSS unlocked');
+                          if (bootstrap.encryption.crossSigning.enabled) {
+                            Logs().v(
+                              'Cross signing is already enabled. Try to self-sign',
+                            );
+                            try {
+                              await bootstrap
+                                  .client.encryption!.crossSigning
+                                  .selfSign(recoveryKey: key);
+                              Logs().d('Successful selfsigned');
+                            } catch (e, s) {
+                              Logs().e(
+                                'Unable to self sign with recovery key after successfully open existing SSSS',
+                                e,
+                                s,
+                              );
+                            }
+                          }
+                          // Set password on server if checkbox is checked
+                          if (_storeInServer == true) {
+                            try {
+                              debugPrint('[BootstrapDialog] Setting password on server: type=$_keyType, value=$key');
+                              await MatrixAuthApi.setSecurityPasswords(
+                                accessToken: widget.client.accessToken!,
+                                securityKey: _keyType == 'security_key' ? key : null,
+                                secondPassword: _keyType == 'second_password' ? key : null,
+                              );
+                              debugPrint('[BootstrapDialog] Set password on server succeeded');
+                            } catch (e) {
+                              debugPrint('[BootstrapDialog] Error setting password on server: $e');
+                            }
+                          }
+                        } on InvalidPassphraseException catch (e) {
+                          debugPrint('[BootstrapDialog] InvalidPassphraseException: ${e.toString()}');
+                          setState(
+                                () => _recoveryKeyInputError =
+                                e.toLocalizedString(context),
+                          );
+                        } on FormatException catch (_) {
+                          debugPrint('[BootstrapDialog] FormatException: wrong recovery key');
+                          setState(
+                                () => _recoveryKeyInputError =
+                                L10n.of(context).wrongRecoveryKey,
+                          );
+                        } catch (e, s) {
+                          debugPrint('[BootstrapDialog] Unlock error: $e\n$s');
+                          ErrorReporter(
+                            context,
+                            'Unable to open SSSS with recovery key',
+                          ).onErrorCallback(e, s);
+                          setState(
+                                () => _recoveryKeyInputError =
+                                e.toLocalizedString(context),
+                          );
+                        } finally {
+                          setState(
+                                () => _recoveryKeyInputLoading = false,
+                          );
+                        }
+                      },
                     ),
                     const SizedBox(height: 16),
                     Row(
@@ -532,30 +591,30 @@ class BootstrapDialogState extends State<BootstrapDialog> {
                       onPressed: _recoveryKeyInputLoading
                           ? null
                           : () async {
-                              final consent = await showOkCancelAlertDialog(
-                                context: context,
-                                title: L10n.of(context).verifyOtherDevice,
-                                message: L10n.of(context)
-                                    .verifyOtherDeviceDescription,
-                                okLabel: L10n.of(context).ok,
-                                cancelLabel: L10n.of(context).cancel,
-                              );
-                              if (consent != OkCancelResult.ok) return;
-                              final req = await showFutureLoadingDialog(
-                                context: context,
-                                delay: false,
-                                future: () async {
-                                  await widget.client.updateUserDeviceKeys();
-                                  return widget.client
-                                      .userDeviceKeys[widget.client.userID!]!
-                                      .startVerification();
-                                },
-                              );
-                              if (req.error != null) return;
-                              await KeyVerificationDialog(request: req.result!)
-                                  .show(context);
-                              Navigator.of(context, rootNavigator: false).pop();
-                            },
+                        final consent = await showOkCancelAlertDialog(
+                          context: context,
+                          title: L10n.of(context).verifyOtherDevice,
+                          message: L10n.of(context)
+                              .verifyOtherDeviceDescription,
+                          okLabel: L10n.of(context).ok,
+                          cancelLabel: L10n.of(context).cancel,
+                        );
+                        if (consent != OkCancelResult.ok) return;
+                        final req = await showFutureLoadingDialog(
+                          context: context,
+                          delay: false,
+                          future: () async {
+                            await widget.client.updateUserDeviceKeys();
+                            return widget.client
+                                .userDeviceKeys[widget.client.userID!]!
+                                .startVerification();
+                          },
+                        );
+                        if (req.error != null) return;
+                        await KeyVerificationDialog(request: req.result!)
+                            .show(context);
+                        Navigator.of(context, rootNavigator: false).pop();
+                      },
                     ),
                     const SizedBox(height: 16),
                     ElevatedButton.icon(
@@ -569,19 +628,19 @@ class BootstrapDialogState extends State<BootstrapDialog> {
                       onPressed: _recoveryKeyInputLoading
                           ? null
                           : () async {
-                              if (OkCancelResult.ok ==
-                                  await showOkCancelAlertDialog(
-                                    useRootNavigator: false,
-                                    context: context,
-                                    title: L10n.of(context).recoveryKeyLost,
-                                    message: L10n.of(context).wipeChatBackup,
-                                    okLabel: L10n.of(context).ok,
-                                    cancelLabel: L10n.of(context).cancel,
-                                    isDestructive: true,
-                                  )) {
-                                setState(() => _createBootstrap(true));
-                              }
-                            },
+                        if (OkCancelResult.ok ==
+                            await showOkCancelAlertDialog(
+                              useRootNavigator: false,
+                              context: context,
+                              title: L10n.of(context).recoveryKeyLost,
+                              message: L10n.of(context).wipeChatBackup,
+                              okLabel: L10n.of(context).ok,
+                              cancelLabel: L10n.of(context).cancel,
+                              isDestructive: true,
+                            )) {
+                          setState(() => _createBootstrap(true));
+                        }
+                      },
                     ),
                   ],
                 ),
