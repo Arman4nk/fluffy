@@ -23,12 +23,6 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
-def keystoreProperties = new Properties()
-def keystorePropertiesFile = rootProject.file('key.properties')
-// if (keystorePropertiesFile.exists()) {
-//     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-// }
-
 android {
     compileSdk = 35
     namespace = "chat.fluffy.fluffychat"
@@ -73,7 +67,7 @@ android {
         release {
             minifyEnabled false
             shrinkResources false
-            signingConfig signingConfigs.debug  // Use debug signing for now
+            signingConfig signingConfigs.debug  // For testing only: uses debug key. Replace with release key for production.
             // signingConfig signingConfigs.release
         }
     }
