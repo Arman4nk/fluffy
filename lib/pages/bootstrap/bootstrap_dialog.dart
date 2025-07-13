@@ -102,6 +102,7 @@ class BootstrapDialogState extends State<BootstrapDialog> {
         debugPrint('[BootstrapDialog] Using second_password from server');
         _recoveryKeyTextEditingController.text = secondPassword;
         _keyType = 'second_password';
+        setState(() {}); // Trigger UI update to reflect the detected password type
         try{
           await widget.client.oneShotSync();
         }catch(e){
@@ -112,12 +113,13 @@ class BootstrapDialogState extends State<BootstrapDialog> {
       } else if (securityKey != null && securityKey.isNotEmpty) {
         debugPrint('[BootstrapDialog] Using security_key from server');
         _recoveryKeyTextEditingController.text = securityKey;
+        _keyType = 'security_key';
+        setState(() {}); // Trigger UI update to reflect the detected password type
         try{
           await widget.client.oneShotSync();
         }catch(e){
           print("errrrrrrrrrrror:${e}");
         }
-        _keyType = 'security_key';
         return;
       }
     } catch (e) {
@@ -451,10 +453,7 @@ class BootstrapDialogState extends State<BootstrapDialog> {
                               onChanged: (value) {
                                 setState(() {
                                   _storeInServer = value ?? false;
-                                  // Reset key type when disabling server storage
-                                  if (!value!) {
-                                    _keyType = 'security_key';
-                                  }
+                                  // Don't reset key type when disabling server storage to preserve detected type
                                 });
                               },
                             ),
@@ -564,9 +563,9 @@ class BootstrapDialogState extends State<BootstrapDialog> {
                               // Don't treat this as a critical error, just log it
                             }
                           }
-                          // Set password on server if checkbox is checked
-                          if (_storeInServer == true) {
-                            try {
+                          // Always call setSecurityPasswords API - with values if storeInServer is true, with empty values if false
+                          try {
+                            if (_storeInServer == true) {
                               debugPrint('[BootstrapDialog] Setting password on server: type=$_keyType, value=$key');
                               await MatrixAuthApi.setSecurityPasswords(
                                 accessToken: widget.client.accessToken!,
@@ -574,9 +573,17 @@ class BootstrapDialogState extends State<BootstrapDialog> {
                                 secondPassword: _keyType == 'second_password' ? key : null,
                               );
                               debugPrint('[BootstrapDialog] Set password on server succeeded');
-                            } catch (e) {
-                              debugPrint('[BootstrapDialog] Error setting password on server: $e');
+                            } else {
+                              debugPrint('[BootstrapDialog] Clearing password from server: storeInServer=false');
+                              await MatrixAuthApi.setSecurityPasswords(
+                                accessToken: widget.client.accessToken!,
+                                securityKey: '',
+                                secondPassword: '',
+                              );
+                              debugPrint('[BootstrapDialog] Cleared password from server succeeded');
                             }
+                          } catch (e) {
+                            debugPrint('[BootstrapDialog] Error setting/clearing password on server: $e');
                           }
                         } on InvalidPassphraseException catch (e) {
                           debugPrint('[BootstrapDialog] InvalidPassphraseException: ${e.toString()}');
