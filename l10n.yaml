@@ -5,3 +5,5 @@ output-class: L10n
 preferred-supported-locales: ["en"]
 use-deferred-loading: true
 nullable-getter: false
+synthetic-package: false
+untranslated-messages-file: untranslated_messages.json

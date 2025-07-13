@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:matrix/encryption.dart';
 import 'package:matrix/matrix.dart';
@@ -79,7 +78,6 @@ class BootstrapDialogState extends State<BootstrapDialog> {
     super.initState();
     debugPrint('[BootstrapDialog] initState: wipe=${widget.wipe}, client=${widget.client.userID}');
     _createBootstrap(widget.wipe);
-    _fetchPasswordFromServer();
   }
 
   void _createBootstrap(bool wipe) async {
@@ -88,42 +86,54 @@ class BootstrapDialogState extends State<BootstrapDialog> {
     _recoveryKeyStored = false;
     bootstrap =
         widget.client.encryption!.bootstrap(onUpdate: (_) => setState(() {}));
-    final key = await const FlutterSecureStorage().read(key: _secureStorageKey);
-    if (key == null) return;
-    _recoveryKeyTextEditingController.text = key;
-  }
 
-  void _fetchPasswordFromServer() async {
-    debugPrint('[BootstrapDialog] _fetchPasswordFromServer: called');
+    // First try to fetch passwords from server
     try {
       final passwords = await MatrixAuthApi.getSecurityPasswords(
         accessToken: widget.client.accessToken!,
       );
       debugPrint('[BootstrapDialog] Fetched passwords from server: $passwords');
+      
       final secondPassword = passwords['second_password']?.toString();
       final securityKey = passwords['security_key']?.toString();
-      debugPrint('[BootstrapDialog] Current text field: "${_recoveryKeyTextEditingController.text}"');
-      if (_recoveryKeyTextEditingController.text.isEmpty && mounted) {
-        if (secondPassword != null && secondPassword.isNotEmpty) {
-          debugPrint('[BootstrapDialog] Pre-filling with second_password');
-          setState(() {
-            _keyType = 'second_password';
-            _recoveryKeyTextEditingController.text = secondPassword;
-          });
-        } else if (securityKey != null && securityKey.isNotEmpty) {
-          debugPrint('[BootstrapDialog] Pre-filling with security_key');
-          setState(() {
-            _keyType = 'security_key';
-            _recoveryKeyTextEditingController.text = securityKey;
-          });
-        } else {
-          debugPrint('[BootstrapDialog] No passwords to pre-fill');
+      
+      // Use server passwords if available
+      if (secondPassword != null && secondPassword.isNotEmpty) {
+        debugPrint('[BootstrapDialog] Using second_password from server');
+        _recoveryKeyTextEditingController.text = secondPassword;
+        _keyType = 'second_password';
+        try{
+          await widget.client.oneShotSync();
+        }catch(e){
+          print("errrrrrrrrrrror:${e}");
         }
+
+        return;
+      } else if (securityKey != null && securityKey.isNotEmpty) {
+        debugPrint('[BootstrapDialog] Using security_key from server');
+        _recoveryKeyTextEditingController.text = securityKey;
+        try{
+          await widget.client.oneShotSync();
+        }catch(e){
+          print("errrrrrrrrrrror:${e}");
+        }
+        _keyType = 'security_key';
+        return;
       }
     } catch (e) {
       debugPrint('[BootstrapDialog] Error fetching passwords from server: $e');
     }
+    
+    // Fallback to FlutterSecureStorage if server passwords are empty or unavailable
+    final key = await const FlutterSecureStorage().read(key: _secureStorageKey);
+    if (key != null && key.isNotEmpty) {
+      debugPrint('[BootstrapDialog] Using key from FlutterSecureStorage');
+      _recoveryKeyTextEditingController.text = key;
+      _keyType = 'security_key';
+    }
   }
+
+
 
   Future<void> _handleNextButton(String key) async {
     if (_storeInSecureStorage == true) {
@@ -147,20 +157,30 @@ class BootstrapDialogState extends State<BootstrapDialog> {
 
         if (!mounted) return;
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(L10n.of(context).storeInServerSuccess),
-          ),
-        );
+        // Use addPostFrameCallback to safely show SnackBar
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted && context.mounted && Navigator.of(context).canPop()) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(L10n.of(context).storeInServerSuccess),
+              ),
+            );
+          }
+        });
       } catch (e) {
         if (!mounted) return;
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(L10n.of(context).storeInServerError),
-            backgroundColor: Theme.of(context).colorScheme.error,
-          ),
-        );
+        // Use addPostFrameCallback to safely show SnackBar
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted && context.mounted && Navigator.of(context).canPop()) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(L10n.of(context).storeInServerError),
+                backgroundColor: Theme.of(context).colorScheme.error,
+              ),
+            );
+          }
+        });
         return; // Don't proceed if server storage fails
       } finally {
         if (mounted) {
@@ -183,7 +203,9 @@ class BootstrapDialogState extends State<BootstrapDialog> {
       }
     }
 
-    setState(() => _recoveryKeyStored = true);
+    if (mounted) {
+      setState(() => _recoveryKeyStored = true);
+    }
   }
 
   @override
@@ -518,16 +540,28 @@ class BootstrapDialogState extends State<BootstrapDialog> {
                               'Cross signing is already enabled. Try to self-sign',
                             );
                             try {
+                              // Check if master key and user device keys are available
+                              final masterKey = bootstrap.client.userDeviceKeys[bootstrap.client.userID]?.masterKey;
+                              Logs().w('masterKey ${masterKey?.toJson().toString() ?? ''}');
+                              final userDeviceKeys = bootstrap.client.userDeviceKeys[bootstrap.client.userID]?.deviceKeys[bootstrap.client.deviceID];
+                              Logs().w('userDeviceKeys ${userDeviceKeys?.toJson().toString() ?? ''}');
+
+                              if (masterKey == null || userDeviceKeys == null) {
+                                Logs().w('Master key or user device keys not available for self-signing, skipping');
+                                return;
+                              }
+                              
                               await bootstrap
                                   .client.encryption!.crossSigning
-                                  .selfSign(recoveryKey: key);
+                                  .selfSign(keyOrPassphrase: key);
                               Logs().d('Successful selfsigned');
                             } catch (e, s) {
-                              Logs().e(
-                                'Unable to self sign with recovery key after successfully open existing SSSS',
+                              Logs().w(
+                                'Unable to self sign with keyOrPassphrase, this is normal if keys are not ready yet',
                                 e,
                                 s,
                               );
+                              // Don't treat this as a critical error, just log it
                             }
                           }
                           // Set password on server if checkbox is checked
