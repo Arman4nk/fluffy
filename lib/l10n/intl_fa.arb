@@ -21,12 +21,12 @@
             }
         }
     },
-    "account": "حساب",
+    "account": "حساب کاربری",
     "@account": {
         "type": "String",
         "placeholders": {}
     },
-    "addToSpace": "به فضا اضافه کنید",
+    "addToSpace": "به فضا اضافه کن",
     "@addToSpace": {},
     "appLock": "قفل برنامه",
     "@appLock": {
@@ -117,7 +117,7 @@
             }
         }
     },
-    "confirmMatrixId": "برای حذف حسابتان، لطفا هویت ماتریکستان را تایید کنید.",
+    "confirmMatrixId": "لطفاً برای حذف حساب، شناسه ماتریکس خود را تأیید کنید.",
     "@confirmMatrixId": {},
     "changeDeviceName": "نام دستگاه را تغییر دهید",
     "@changeDeviceName": {
@@ -1122,7 +1122,7 @@
         "type": "String",
         "placeholders": {}
     },
-    "fluffychat": "فلافی‌چت",
+    "fluffychat": "چتسی",
     "@fluffychat": {
         "type": "String",
         "placeholders": {}
@@ -1217,7 +1217,7 @@
         "type": "String",
         "placeholders": {}
     },
-    "newMessageInFluffyChat": "💬 پیام جدید در فلافی‌چت",
+    "newMessageInFluffyChat": "💬 پیام جدید در چتسی",
     "@newMessageInFluffyChat": {
         "type": "String",
         "placeholders": {}
@@ -1579,7 +1579,7 @@
         "type": "String",
         "placeholders": {}
     },
-    "noGoogleServicesWarning": "به نظر می رسد که شما سرویس‌های گوگل را در گوشی خود ندارید. این تصمیم خوبی برای حفظ حریم خصوصی شماست! برای دریافت اعلان‌ها در فلافی‌چت توصیه می‌کنیم ازhttps://ntfy.sh استفاده کنید. با ntfy یا یک ارائه دهنده UnifiedPush می توانید اعلان‌های فشار را به روش داده امن دریافت کنید. می توانید ntfy را از پلی استور یا از اف‌دروید بارگیری کنید.",
+    "noGoogleServicesWarning": "به نظر می رسد که شما سرویس‌های گوگل را در گوشی خود ندارید. این تصمیم خوبی برای حفظ حریم خصوصی شماست! برای دریافت اعلان‌ها در چتسی توصیه می‌کنیم ازhttps://ntfy.sh استفاده کنید. با ntfy یا یک ارائه دهنده UnifiedPush می توانید اعلان‌های فشار را به روش داده امن دریافت کنید. می توانید ntfy را از پلی استور یا از اف‌دروید بارگیری کنید.",
     "@noGoogleServicesWarning": {
         "type": "String",
         "placeholders": {}
@@ -1640,7 +1640,7 @@
     },
     "serverRequiresEmail": "برای ثبت‌نام، این سرور باید آدرس ایمیل شما را تایید کند.",
     "@serverRequiresEmail": {},
-    "inviteText": "{username} شما را به فلافی‌چت دعوت کرد.\n۱. به fluffychat.im مراجعه کرده و کاره را نصب کنید\n۲. ثبت نام کنید یا وارد شوید.\n۳. لینک دعوت را باز کنید:\n {link}",
+    "inviteText": "{username} شما را به چتسی دعوت کرد.\n۱. به fluffychat.im مراجعه کرده و کاره را نصب کنید\n۲. ثبت نام کنید یا وارد شوید.\n۳. لینک دعوت را باز کنید:\n {link}",
     "@inviteText": {
         "type": "String",
         "placeholders": {
@@ -1792,7 +1792,7 @@
             }
         }
     },
-    "remove": "حذف کردن",
+    "remove": "حذف",
     "@remove": {
         "type": "String",
         "placeholders": {}
@@ -1910,7 +1910,7 @@
             }
         }
     },
-    "callingAccountDetails": "به فلافی‌چت اجازه می‌دهد تا از برنامه شماره‌گیر بومی اندروید استفاده کند.",
+    "callingAccountDetails": "به چتسی اجازه می‌دهد تا از برنامه شماره‌گیر بومی اندروید استفاده کند.",
     "@callingAccountDetails": {},
     "noKeyForThisMessage": "اگر پیام قبل از ورود به حسابتان در این دستگاه ارسال شده باشد، ممکن است این اتفاق بیفتد.\n\nهمچنین ممکن است فرستنده، دستگاه شما را مسدود کرده باشد یا مشکلی در اتصال اینترنت رخ داده باشد.\n\nآیا می توانید پیام را در نشست دیگری بخوانید؟ بنابراین می توانید پیام را از آن منتقل کنید! به تنظیمات > دستگاه‌ها بروید و مطمئن شوید که دستگاه های شما یکدیگر را تایید کرده‌اند. هنگامی که دفعه بعد اتاق را باز می‌کنید و هر دو جلسه در پیش‌زمینه هستند، کلیدها به طور خودکار منتقل می‌شوند.\n\nآیا نمی‌خواهید هنگام خروج از سیستم یا تعویض دستگاه، کلیدها را گم کنید؟ مطمئن شوید که پشتیبان گپ را در تنظیمات فعال کرده‌اید.",
     "@noKeyForThisMessage": {},
@@ -1935,7 +1935,7 @@
     "@appearOnTopDetails": {},
     "storeSecurlyOnThisDevice": "به طور ایمن در دستگاه ذخیره کنید",
     "@storeSecurlyOnThisDevice": {},
-    "screenSharingDetail": "شما در حال به اشتراک‌گذاری صفحه‌نمایش خود در فلافی‌چت هستید",
+    "screenSharingDetail": "شما در حال به اشتراک‌گذاری صفحه‌نمایش خود در چتسی هستید",
     "@screenSharingDetail": {},
     "newSpace": "فضای جدید",
     "@newSpace": {},
@@ -1957,7 +1957,7 @@
     "@callingAccount": {},
     "appearOnTop": "در بالا ظاهر شود",
     "@appearOnTop": {},
-    "otherCallingPermissions": "میکروفون، دوربین و سایر مجوزهای فلافی‌چت",
+    "otherCallingPermissions": "میکروفون، دوربین و سایر مجوزهای چتسی",
     "@otherCallingPermissions": {},
     "whyIsThisMessageEncrypted": "چرا این پیام قابل خواندن نیست؟",
     "@whyIsThisMessageEncrypted": {},
@@ -2091,7 +2091,7 @@
         "type": "String",
         "placeholders": {}
     },
-    "title": "فلافی‌چت",
+    "title": "چتسی",
     "@title": {
         "description": "Title for the application",
         "type": "String",
@@ -2177,7 +2177,7 @@
     "@time": {},
     "messageType": "نوع پیام",
     "@messageType": {},
-    "addToSpaceDescription": "فضایی برای افزودن این گپ به آن انتخاب کنید.",
+    "addToSpaceDescription": "یک فضا را برای افزودن این گپ انتخاب کنید.",
     "@addToSpaceDescription": {},
     "start": "شروع",
     "@start": {},
@@ -2236,7 +2236,7 @@
         "type": "String",
         "placeholders": {}
     },
-    "openChat": "بازکردن گپ",
+    "openChat": "باز کردن گپ",
     "@openChat": {},
     "dismiss": "رد كردن‌",
     "@dismiss": {},
@@ -2281,6 +2281,15 @@
     "@synchronizingPleaseWait": {
         "type": "String",
         "placeholders": {}
+    },
+    "synchronizingPleaseWaitCounter": "در حال همگام‌سازی... ({percentage}٪)",
+    "@synchronizingPleaseWaitCounter": {
+        "type": "String",
+        "placeholders": {
+            "percentage": {
+                "type": "String"
+            }
+        }
     },
     "unknownEvent": "رویداد ناشناخته «{type}»",
     "@unknownEvent": {
@@ -2346,11 +2355,11 @@
     "@openGallery": {},
     "removeFromSpace": "حذف از فضا",
     "@removeFromSpace": {},
-    "pleaseEnterRecoveryKeyDescription": "برای گشودن قفل پیام‌های قدیمیتان، لطفا کلید بازیابی‌ای که در یک نشست پیشین تولید شده را وارد کنید. کلید بازیابی شما، رمز عبور شما نیست.",
+    "pleaseEnterRecoveryKeyDescription": "برای باز کردن پیام‌های قدیمی، لطفاً کلید بازیابی خود را که در یک نشست قبلی ایجاد شده وارد کنید. کلید بازیابی شما رمز عبور شما نیست.",
     "@pleaseEnterRecoveryKeyDescription": {},
-    "confirmEventUnpin": "آیا از برداشتن سنجاق رویداد به صورت دائمی مطمئن هستید؟",
+    "confirmEventUnpin": "آیا مطمئن هستید که رویداد را برای همیشه از سنجاق خارج کنید؟",
     "@confirmEventUnpin": {},
-    "indexedDbErrorLong": "متاسفانه فضای ذخیره‌سازی پیام‌ها، به صورت پیش‌فرض در حالت خصوصی فعال نیست.\nلطفا آدرس زیر را باز کنید:\nabout:config\nمقدار «dom.indexedDB.privateBrowsing.enabled» را به «true» تغییر دهید\nدر غیر این صورت، امکان اجرای فلافی‌چت وجود ندارد.",
+    "indexedDbErrorLong": "متاسفانه فضای ذخیره‌سازی پیام‌ها، به صورت پیش‌فرض در حالت خصوصی فعال نیست.\nلطفا آدرس زیر را باز کنید:\nabout:config\nمقدار «dom.indexedDB.privateBrowsing.enabled» را به «true» تغییر دهید\nدر غیر این صورت، امکان اجرای چتسی وجود ندارد.",
     "@indexedDbErrorLong": {},
     "widgetEtherpad": "یادداشت متنی",
     "@widgetEtherpad": {},
@@ -2383,13 +2392,13 @@
         "type": "String",
         "placeholders": {}
     },
-    "videoCallsBetaWarning": "لطفا توجه داشته باشید که تماس‌های تصویری در حال حاضر آزمایشی هستند. ممکن است طبق انتظار کار نکنند یا روی همه پلتفرم‌ها اصلا کار نکنند.",
+    "videoCallsBetaWarning": "لطفاً توجه داشته باشید که تماس‌های تصویری فعلاً در حالت آزمایشی هستند. ممکن است طبق انتظار کار نکنند یا روی همه پلتفرم‌ها اصلاً کار نکنند.",
     "@videoCallsBetaWarning": {},
     "experimentalVideoCalls": "تماس‌های تصویری آزمایشی",
     "@experimentalVideoCalls": {},
     "placeCall": "برقراری تماس",
     "@placeCall": {},
-    "unsupportedAndroidVersionLong": "این ویژگی به نسخه تازه‌تری از اندروید نیاز دارد. لطفا به‌روزرسانی یا پشتیبانی لینیج‌اواس(LineageOS) را بررسی کنید.",
+    "unsupportedAndroidVersionLong": "این ویژگی به نسخه جدیدتری از اندروید نیاز دارد. لطفاً برای به‌روزرسانی یا پشتیبانی Lineage OS بررسی کنید.",
     "@unsupportedAndroidVersionLong": {},
     "sharedTheLocation": "{username} وضعیت مکانی خود را به اشتراک گذاشت",
     "@sharedTheLocation": {
@@ -2419,13 +2428,13 @@
         "type": "String",
         "placeholders": {}
     },
-    "markAsRead": "علامت‌گذاشتن به عنوان خوانده شده",
+    "markAsRead": "علامت به عنوان خوانده شده",
     "@markAsRead": {},
-    "reportUser": "گزارش دادن کاربر",
+    "reportUser": "گزارش کاربر",
     "@reportUser": {},
-    "pinMessage": "سنجاق کردن به اتاق",
+    "pinMessage": "سنجاق به اتاق",
     "@pinMessage": {},
-    "emojis": "شکلک‌ها",
+    "emojis": "ایموجی‌ها",
     "@emojis": {},
     "voiceCall": "تماس صوتی",
     "@voiceCall": {},
@@ -2618,5 +2627,693 @@
         "placeholders": {}
     },
     "keyType": "نوع کلید",
-    "storageOptions": "گزینه‌های ذخیره‌سازی"
+    "storageOptions": "گزینه‌های ذخیره‌سازی",
+    "alwaysUse24HourFormat": "همیشه از قالب ۲۴ ساعته استفاده کن",
+    "@alwaysUse24HourFormat": {
+        "description": "Set to true to always display time of day in 24 hour format."
+    },
+    "setCustomPermissionLevel": "تنظیم سطح دسترسی سفارشی",
+    "@setCustomPermissionLevel": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "setPermissionsLevelDescription": "لطفاً یک نقش از پیش‌تعریف‌شده را انتخاب کنید یا سطح دسترسی سفارشی بین ۰ تا ۱۰۰ وارد کنید.",
+    "@setPermissionsLevelDescription": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "ignoreUser": "نادیده گرفتن کاربر",
+    "@ignoreUser": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "normalUser": "کاربر عادی",
+    "@normalUser": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "importNow": "اکنون وارد کن",
+    "@importNow": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "importEmojis": "وارد کردن ایموجی‌ها",
+    "@importEmojis": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "importFromZipFile": "وارد کردن از فایل zip",
+    "@importFromZipFile": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "exportEmotePack": "خروجی گرفتن بسته ایموجی به صورت zip",
+    "@exportEmotePack": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "replace": "جایگزین کن",
+    "@replace": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "aboutHomeserver": "درباره {homeserver}",
+    "@aboutHomeserver": {
+        "type": "String",
+        "placeholders": {
+            "homeserver": {
+                "type": "String"
+            }
+        }
+    },
+    "addChatDescription": "افزودن توضیح برای گپ...",
+    "@addChatDescription": {},
+    "commandHint_roomupgrade": "ارتقاء این اتاق به نسخه جدید",
+    "@commandHint_roomupgrade": {},
+    "appLockDescription": "قفل کردن برنامه هنگام عدم استفاده با کد پین",
+    "@appLockDescription": {},
+    "sendTypingNotifications": "ارسال اعلان تایپ کردن",
+    "@sendTypingNotifications": {},
+    "swipeRightToLeftToReply": "برای پاسخ، از راست به چپ بکشید",
+    "@swipeRightToLeftToReply": {},
+    "countChatsAndCountParticipants": "{chats} گپ و {participants} شرکت‌کننده",
+    "@countChatsAndCountParticipants": {
+        "type": "String",
+        "placeholders": {
+            "chats": {
+                "type": "int"
+            },
+            "participants": {
+                "type": "int"
+            }
+        }
+    },
+    "noMoreChatsFound": "گپی بیشتر پیدا نشد...",
+    "noChatsFoundHere": "هنوز گپی اینجا پیدا نشد. برای شروع یک گپ جدید با کسی، از دکمه زیر استفاده کنید. ⤵️",
+    "joinedChats": "گپ‌های پیوسته",
+    "unread": "خوانده‌نشده",
+    "space": "فضا",
+    "spaces": "فضاها",
+    "checkList": "چک لیست",
+    "countInvited": "{count} دعوت شده",
+    "@countInvited": {
+        "type": "String",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "sendReadReceipts": "ارسال رسید خواندن پیام‌ها",
+    "@sendReadReceipts": {},
+    "sendTypingNotificationsDescription": "سایر شرکت‌کنندگان در گپ می‌توانند ببینند که شما در حال تایپ پیام جدید هستید.",
+    "@sendTypingNotificationsDescription": {},
+    "sendReadReceiptsDescription": "سایر شرکت‌کنندگان در گپ می‌توانند ببینند که شما پیام را خوانده‌اید.",
+    "@sendReadReceiptsDescription": {},
+    "formattedMessages": "پیام‌های فرمت‌دار",
+    "@formattedMessages": {},
+    "formattedMessagesDescription": "نمایش محتوای غنی پیام مانند متن بولد با استفاده از مارک‌داون.",
+    "@formattedMessagesDescription": {},
+    "verifyOtherUser": "🔐 تایید کاربر دیگر",
+    "@verifyOtherUser": {},
+    "verifyOtherUserDescription": "اگر کاربر دیگری را تایید کنید، مطمئن می‌شوید که واقعاً با چه کسی در حال گفتگو هستید. 💪\n\nهنگام شروع تایید، شما و کاربر دیگر یک پنجره پاپ‌آپ در برنامه خواهید دید. در آنجا مجموعه‌ای از ایموجی‌ها یا اعداد را می‌بینید که باید با هم مقایسه کنید.\n\nبهترین راه این است که حضوری ملاقات کنید یا تماس تصویری برقرار کنید. 👭",
+    "@verifyOtherUserDescription": {},
+    "verifyOtherDevice": "🔐 تایید دستگاه دیگر",
+    "@verifyOtherDevice": {},
+    "verifyOtherDeviceDescription": "وقتی دستگاه دیگری را تایید می‌کنید، آن دستگاه‌ها می‌توانند کلیدها را تبادل کنند و امنیت کلی شما افزایش می‌یابد. 💪 هنگام شروع تایید، یک پنجره پاپ‌آپ در هر دو دستگاه ظاهر می‌شود. در آنجا مجموعه‌ای از ایموجی‌ها یا اعداد را می‌بینید که باید با هم مقایسه کنید. بهتر است هر دو دستگاه را قبل از شروع تایید آماده داشته باشید. 🤳",
+    "@verifyOtherDeviceDescription": {},
+    "acceptedKeyVerification": "{sender} تایید کلید را پذیرفت",
+    "@acceptedKeyVerification": {
+        "type": "String",
+        "placeholders": {
+            "sender": {
+                "type": "String"
+            }
+        }
+    },
+    "canceledKeyVerification": "{sender} تایید کلید را لغو کرد",
+    "@canceledKeyVerification": {
+        "type": "String",
+        "placeholders": {
+            "sender": {
+                "type": "String"
+            }
+        }
+    },
+    "completedKeyVerification": "{sender} تایید کلید را کامل کرد",
+    "@completedKeyVerification": {
+        "type": "String",
+        "placeholders": {
+            "sender": {
+                "type": "String"
+            }
+        }
+    },
+    "isReadyForKeyVerification": "{sender} آماده تایید کلید است",
+    "@isReadyForKeyVerification": {
+        "type": "String",
+        "placeholders": {
+            "sender": {
+                "type": "String"
+            }
+        }
+    },
+    "requestedKeyVerification": "{sender} درخواست تایید کلید کرد",
+    "@requestedKeyVerification": {
+        "type": "String",
+        "placeholders": {
+            "sender": {
+                "type": "String"
+            }
+        }
+    },
+    "startedKeyVerification": "{sender} تایید کلید را آغاز کرد",
+    "@startedKeyVerification": {
+        "type": "String",
+        "placeholders": {
+            "sender": {
+                "type": "String"
+            }
+        }
+    },
+    "unreadChatsInApp": "{appname}: {unread} گپ خوانده‌نشده",
+    "@unreadChatsInApp": {
+        "type": "String",
+        "placeholders": {
+            "appname": {"type": "String"},
+            "unread": {"type": "String"}
+        }
+    },
+    "noDatabaseEncryption": "رمزگذاری پایگاه داده در این پلتفرم پشتیبانی نمی‌شود",
+    "@noDatabaseEncryption": {},
+    "thereAreCountUsersBlocked": "در حال حاضر {count} کاربر مسدود شده‌اند.",
+    "@thereAreCountUsersBlocked": {
+        "type": "String",
+        "placeholders": {
+            "count": {"type": "Object"}
+        }
+    },
+    "restricted": "محدود شده",
+    "@restricted": {},
+    "knockRestricted": "دسترسی ضربه زدن محدود شده است",
+    "@knockRestricted": {},
+    "goToSpace": "رفتن به فضا: {space}",
+    "@goToSpace": {
+        "type": "String",
+        "placeholders": {
+            "space": {"type": "Object"}
+        }
+    },
+    "markAsUnread": "علامت‌گذاری به عنوان خوانده‌نشده",
+    "@markAsUnread": {},
+    "userLevel": "{level} - کاربر",
+    "@userLevel": {
+        "type": "String",
+        "placeholders": {
+            "level": {"type": "int"}
+        }
+    },
+    "moderatorLevel": "{level} - مدیر",
+    "@moderatorLevel": {
+        "type": "String",
+        "placeholders": {
+            "level": {"type": "int"}
+        }
+    },
+    "adminLevel": "{level} - ادمین",
+    "@adminLevel": {
+        "type": "String",
+        "placeholders": {
+            "level": {"type": "int"}
+        }
+    },
+    "changeGeneralChatSettings": "تغییر تنظیمات کلی گپ",
+    "@changeGeneralChatSettings": {},
+    "inviteOtherUsers": "دعوت سایر کاربران به این گپ",
+    "@inviteOtherUsers": {},
+    "changeTheChatPermissions": "تغییر مجوزهای گپ",
+    "@changeTheChatPermissions": {},
+    "changeTheVisibilityOfChatHistory": "تغییر قابلیت مشاهده تاریخچه گپ",
+    "@changeTheVisibilityOfChatHistory": {},
+    "changeTheCanonicalRoomAlias": "تغییر آدرس عمومی اصلی گپ",
+    "@changeTheCanonicalRoomAlias": {},
+    "sendRoomNotifications": "ارسال اعلان @room",
+    "@sendRoomNotifications": {},
+    "changeTheDescriptionOfTheGroup": "تغییر توضیحات گپ",
+    "@changeTheDescriptionOfTheGroup": {},
+    "chatPermissionsDescription": "تعیین کنید چه سطح اختیاری برای انجام اقدامات خاص در این گپ لازم است. معمولاً سطوح ۰، ۵۰ و ۱۰۰ به ترتیب نمایانگر کاربران، مدیران و ادمین‌ها هستند، اما هر درجه‌بندی ممکن است.",
+    "@chatPermissionsDescription": {},
+    "updateInstalled": "🎉 به‌روزرسانی {version} نصب شد!",
+    "@updateInstalled": {
+        "type": "String",
+        "placeholders": {
+            "version": {"type": "String"}
+        }
+    },
+    "notificationRuleCallDescription": "کاربر را درباره تماس‌ها مطلع می‌کند.",
+    "@notificationRuleCallDescription": {},
+    "notificationRuleEncryptedRoomOneToOne": "اتاق رمزگذاری‌شده یک‌به‌یک",
+    "@notificationRuleEncryptedRoomOneToOne": {},
+    "notificationRuleEncryptedRoomOneToOneDescription": "کاربر را درباره پیام‌ها در اتاق‌های رمزگذاری‌شده یک‌به‌یک مطلع می‌کند.",
+    "@notificationRuleEncryptedRoomOneToOneDescription": {},
+    "notificationRuleRoomOneToOne": "اتاق یک‌به‌یک",
+    "@notificationRuleRoomOneToOne": {},
+    "notificationRuleRoomOneToOneDescription": "کاربر را درباره پیام‌ها در اتاق‌های یک‌به‌یک مطلع می‌کند.",
+    "@notificationRuleRoomOneToOneDescription": {},
+    "notificationRuleMessage": "پیام",
+    "@notificationRuleMessage": {},
+    "notificationRuleMessageDescription": "کاربر را درباره پیام‌های عمومی مطلع می‌کند.",
+    "@notificationRuleMessageDescription": {},
+    "notificationRuleEncrypted": "رمزگذاری‌شده",
+    "@notificationRuleEncrypted": {},
+    "notificationRuleEncryptedDescription": "کاربر را درباره پیام‌ها در اتاق‌های رمزگذاری‌شده مطلع می‌کند.",
+    "@notificationRuleEncryptedDescription": {},
+    "notificationRuleJitsi": "جیتسی",
+    "@notificationRuleJitsi": {},
+    "notificationRuleJitsiDescription": "کاربر را درباره رویدادهای ویجت جیتسی مطلع می‌کند.",
+    "@notificationRuleJitsiDescription": {},
+    "notificationRuleServerAcl": "رویدادهای ACL سرور را نادیده بگیر",
+    "@notificationRuleServerAcl": {},
+    "notificationRuleServerAclDescription": "اعلان‌ها برای رویدادهای ACL سرور را نادیده می‌گیرد.",
+    "@notificationRuleServerAclDescription": {},
+    "unknownPushRule": "قانون پوش ناشناخته '{rule}'",
+    "@unknownPushRule": {
+        "type": "String",
+        "placeholders": {
+            "rule": {"type": "String"}
+        }
+    },
+    "sentVoiceMessage": "🎙️ {duration} - پیام صوتی از {sender}",
+    "@sentVoiceMessage": {
+        "type": "String",
+        "placeholders": {
+            "sender": {"type": "String"},
+            "duration": {"type": "String"}
+        }
+    },
+    "deletePushRuleCanNotBeUndone": "اگر این تنظیم اعلان را حذف کنید، قابل بازگشت نخواهد بود.",
+    "@deletePushRuleCanNotBeUndone": {},
+    "more": "بیشتر",
+    "@more": {},
+    "shareKeysWith": "اشتراک‌گذاری کلیدها با...",
+    "@shareKeysWith": {},
+    "shareKeysWithDescription": "کدام دستگاه‌ها باید مورد اعتماد باشند تا بتوانند پیام‌های رمزگذاری‌شده شما را بخوانند؟",
+    "@shareKeysWithDescription": {},
+    "allDevices": "همه دستگاه‌ها",
+    "@allDevices": {},
+    "crossVerifiedDevicesIfEnabled": "دستگاه‌های متقاطع تاییدشده (در صورت فعال بودن)",
+    "@crossVerifiedDevicesIfEnabled": {},
+    "crossVerifiedDevices": "دستگاه‌های متقاطع تاییدشده",
+    "@crossVerifiedDevices": {},
+    "addChatOrSubSpace": "افزودن گپ یا زیرفضا",
+    "@addChatOrSubSpace": {},
+    "pleaseChooseAStrongPassword": "لطفاً یک رمز عبور قوی انتخاب کنید",
+    "@pleaseChooseAStrongPassword": {},
+    "joinSpace": "پیوستن به فضا",
+    "@joinSpace": {},
+    "startConversation": "شروع گفتگو",
+    "@startConversation": {},
+    "yourGlobalUserIdIs": "شناسه کاربری جهانی شما: ",
+    "@yourGlobalUserIdIs": {},
+    "select": "انتخاب",
+    "@select": {},
+    "subspace": "زیرفضا",
+    "@subspace": {},
+    "decline": "رد کردن",
+    "@decline": {},
+    "nothingFound": "چیزی پیدا نشد...",
+    "@nothingFound": {},
+    "thisDevice": "این دستگاه:",
+    "@thisDevice": {},
+    "newPassword": "رمز عبور جدید",
+    "@newPassword": {},
+    "incomingMessages": "پیام‌های دریافتی",
+    "@incomingMessages": {},
+    "stickers": "استیکرها",
+    "@stickers": {},
+    "discover": "کشف کردن",
+    "@discover": {},
+    "commandHint_ignore": "نادیده گرفتن شناسه ماتریکس داده‌شده",
+    "@commandHint_ignore": {},
+    "commandHint_unignore": "لغو نادیده گرفتن شناسه ماتریکس داده‌شده",
+    "@commandHint_unignore": {},
+    "noUsersFoundWithQuery": "متاسفانه هیچ کاربری با \"{query}\" پیدا نشد. لطفاً اگر اشتباهی وجود دارد بررسی کنید.",
+    "@noUsersFoundWithQuery": {
+        "type": "String",
+        "placeholders": {
+            "query": {"type": "String"}
+        }
+    },
+    "leaveEmptyToClearStatus": "برای پاک کردن وضعیت خود، خالی بگذارید.",
+    "@leaveEmptyToClearStatus": {},
+    "initAppError": "هنگام راه‌اندازی برنامه خطایی رخ داد",
+    "@initAppError": {},
+    "databaseMigrationTitle": "پایگاه داده بهینه شد",
+    "@databaseMigrationTitle": {},
+    "databaseMigrationBody": "لطفاً صبر کنید. این کار ممکن است کمی زمان ببرد.",
+    "@databaseMigrationBody": {},
+    "searchForUsers": "جستجو برای @کاربر...",
+    "@searchForUsers": {},
+    "blockUsername": "نادیده گرفتن نام کاربری",
+    "@blockUsername": {},
+    "hidePresences": "مخفی کردن وضعیت‌ها؟",
+    "@hidePresences": {},
+    "pleaseWaitUntilInvited": "لطفاً منتظر بمانید تا کسی از اتاق شما را دعوت کند.",
+    "@pleaseWaitUntilInvited": {},
+    "setCustomPermissionLevel": "تنظیم سطح دسترسی سفارشی",
+    "@setCustomPermissionLevel": {},
+    "setColorTheme": "تنظیم تم رنگی:",
+    "@setColorTheme": {},
+    "messages": "پیام‌ها",
+    "@messages": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "messagesStyle": "پیام‌ها:",
+    "@messagesStyle": {},
+    "overview": "نمای کلی",
+    "@overview": {},
+    "presencesToggle": "نمایش پیام‌های وضعیت سایر کاربران",
+    "@presencesToggle": {
+        "type": "String",
+        "placeholders": {}
+    },
+    "displayNavigationRail": "نمایش نوار ناوبری در موبایل",
+    "searchChatsRooms": "جستجو برای #گپ‌ها، @کاربران...",
+    "@searchChatsRooms": {},
+    "shareInviteLink": "اشتراک‌گذاری لینک دعوت",
+    "@shareInviteLink": {},
+    "createGroupAndInviteUsers": "ایجاد گروه و دعوت از کاربران",
+    "@createGroupAndInviteUsers": {},
+    "notificationRuleContainsUserName": "حاوی نام کاربری",
+    "notificationRuleContainsUserNameDescription": "هنگامی که پیامی شامل نام کاربری شما باشد، به شما اطلاع داده می‌شود.",
+    "notificationRuleMaster": "بی‌صدا کردن همه اعلان‌ها",
+    "notificationRuleMasterDescription": "همه قوانین دیگر را لغو و همه اعلان‌ها را غیرفعال می‌کند.",
+    "notificationRuleSuppressNotices": "نادیده گرفتن پیام‌های خودکار",
+    "notificationRuleSuppressNoticesDescription": "اعلان‌های ارسال‌شده توسط کلاینت‌های خودکار مانند ربات‌ها را نادیده می‌گیرد.",
+    "notificationRuleInviteForMe": "دعوت برای من",
+    "notificationRuleInviteForMeDescription": "هنگامی که به اتاقی دعوت می‌شوید، به شما اطلاع داده می‌شود.",
+    "notificationRuleMemberEvent": "رویداد عضویت",
+    "notificationRuleMemberEventDescription": "اعلان‌های مربوط به رویدادهای عضویت را نادیده می‌گیرد.",
+    "notificationRuleIsUserMention": "ذکر مستقیم کاربر",
+    "notificationRuleIsUserMentionDescription": "هنگامی که مستقیماً در پیامی ذکر می‌شوید، به شما اطلاع داده می‌شود.",
+    "notificationRuleContainsDisplayName": "حاوی نام نمایشی",
+    "notificationRuleContainsDisplayNameDescription": "هنگامی که پیامی شامل نام نمایشی شما باشد، به شما اطلاع داده می‌شود.",
+    "notificationRuleIsRoomMention": "ذکر اتاق",
+    "notificationRuleIsRoomMentionDescription": "هنگامی که اتاقی ذکر می‌شود، به شما اطلاع داده می‌شود.",
+    "notificationRuleRoomnotif": "اعلان اتاق",
+    "notificationRuleRoomnotifDescription": "هنگامی که پیامی شامل '@room' باشد، به شما اطلاع داده می‌شود.",
+    "notificationRuleTombstone": "غیرفعال‌سازی اتاق",
+    "notificationRuleTombstoneDescription": "درباره پیام‌های غیرفعال‌سازی اتاق به شما اطلاع داده می‌شود.",
+    "notificationRuleReaction": "واکنش",
+    "notificationRuleReactionDescription": "اعلان‌های مربوط به واکنش‌ها را نادیده می‌گیرد.",
+    "notificationRuleRoomServerAcl": "لیست کنترل دسترسی سرور اتاق",
+    "notificationRuleRoomServerAclDescription": "اعلان‌های مربوط به لیست کنترل دسترسی سرور اتاق را نادیده می‌گیرد.",
+    "notificationRuleSuppressEdits": "نادیده گرفتن ویرایش‌ها",
+    "notificationRuleSuppressEditsDescription": "اعلان‌های مربوط به پیام‌های ویرایش‌شده را نادیده می‌گیرد.",
+    "contentNotificationSettings": "تنظیمات اعلان محتوا",
+    "generalNotificationSettings": "تنظیمات کلی اعلان‌ها",
+    "otherNotificationSettings": "سایر تنظیمات اعلان‌ها",
+    
+    "createGroup": "ایجاد گروه",
+    "@createGroup": {},
+    "hideMemberChangesInPublicChats": "مخفی کردن تغییرات اعضا در گپ‌های عمومی",
+    "hideMemberChangesInPublicChatsBody": "برای خوانایی بیشتر، پیوستن یا ترک اعضا در گپ‌های عمومی در تایم‌لاین نمایش داده نشود.",
+    "hideRedactedMessages": "مخفی کردن پیام‌های ویرایش‌شده",
+    "hideRedactedMessagesBody": "اگر کسی پیامی را ویرایش کند، آن پیام دیگر در گپ نمایش داده نمی‌شود.",
+    "hideInvalidOrUnknownMessageFormats": "مخفی کردن پیام‌های نامعتبر یا ناشناخته",
+    "customEmojisAndStickers": "ایموجی‌ها و استیکرهای سفارشی",
+    "customEmojisAndStickersBody": "افزودن یا اشتراک‌گذاری ایموجی‌ها یا استیکرهای سفارشی که می‌توان در هر گپی استفاده کرد.",
+    "blockedUsers": "کاربران مسدود شده",
+    "@blockedUsers": {},
+    "blockListDescription": "می‌توانید کاربرانی که مزاحم شما هستند را مسدود کنید. پس از مسدودسازی، هیچ پیام یا دعوت‌نامه‌ای از این کاربران دریافت نخواهید کرد.",
+    "@blockListDescription": {},
+    "oneOfYourDevicesIsNotVerified": "یکی از دستگاه‌های شما تأیید نشده است",
+    "pleaseEnterYourCurrentPassword": "لطفاً رمز عبور فعلی خود را وارد کنید",
+    "@pleaseEnterYourCurrentPassword": {},
+    "passwordRecoverySettings": "تنظیمات بازیابی رمز عبور",
+    "@passwordRecoverySettings": {},
+    "verifiedDevicesOnly": "فقط دستگاه‌های تأییدشده",
+    "waitingForServer": "در انتظار پاسخ سرور...",
+    "directChat": "گپ‌ مستقیم",
+    "@directChat": {},
+    "setChatDescription": "تنظیم توضیح گپ",
+    "@setChatDescription": {},
+    "noChatDescriptionYet": "هنوز توضیحی برای گپ ایجاد نشده است.",
+    "@noChatDescriptionYet": {},
+    "chatDescription": "توضیح گپ",
+    "@chatDescription": {},
+    "chatDescriptionHasBeenChanged": "توضیح گپ تغییر کرد",
+    "@chatDescriptionHasBeenChanged": {},
+    "accessAndVisibility": "دسترسی و قابل‌مشاهده بودن",
+    "@accessAndVisibility": {},
+    "accessAndVisibilityDescription": "چه کسانی اجازه پیوستن به این گپ را دارند و این گپ چگونه قابل کشف است.",
+    "@accessAndVisibilityDescription": {},
+    "invite": "دعوت",
+    "@invite": {},
+    "chatPermissions": "مجوزهای گپ",
+    "@chatPermissions": {},
+    "archiveRoomDescription": "گپ به آرشیو منتقل خواهد شد. سایر کاربران خواهند دید که شما گپ را ترک کرده‌اید.",
+    "@archiveRoomDescription": {},
+    "pleaseEnterANumber": "لطفاً عددی بزرگ‌تر از ۰ وارد کنید",
+    "@pleaseEnterANumber": {},
+    "roomUpgradeDescription": "سپس گپ با نسخه جدید اتاق بازسازی می‌شود. به همه شرکت‌کنندگان اطلاع داده می‌شود که باید به گپ جدید منتقل شوند. اطلاعات بیشتر درباره نسخه‌های اتاق را می‌توانید در https://spec.matrix.org/latest/rooms/ بیابید.",
+    "@roomUpgradeDescription": {},
+    "removeDevicesDescription": "از این دستگاه خارج خواهید شد و دیگر نمی‌توانید پیام دریافت کنید.",
+    "@removeDevicesDescription": {},
+    "banUserDescription": "کاربر از گپ محروم می‌شود و تا زمانی که رفع محرومیت نشود، نمی‌تواند وارد گپ شود.",
+    "@banUserDescription": {},
+    "unbanUserDescription": "در صورت تلاش، کاربر می‌تواند دوباره وارد گپ شود.",
+    "@unbanUserDescription": {},
+    "kickUserDescription": "کاربر از گپ خارج می‌شود اما محروم نمی‌شود. در گپ‌های عمومی، کاربر می‌تواند هر زمان دوباره بپیوندد.",
+    "@kickUserDescription": {},
+    "makeAdminDescription": "پس از اینکه این کاربر را ادمین کنید، ممکن است نتوانید این کار را لغو کنید زیرا او همان مجوزهای شما را خواهد داشت.",
+    "@makeAdminDescription": {},
+    "pushNotificationsNotAvailable": "اعلان‌های پوش در دسترس نیستند",
+    "@pushNotificationsNotAvailable": {},
+    "learnMore": "بیشتر بدانید",
+    "@learnMore": {},
+    "knocking": "در حال درخواست ورود",
+    "@knocking": {},
+    "chatCanBeDiscoveredViaSearchOnServer": "گپ از طریق جستجو در {server} قابل کشف است",
+    "@chatCanBeDiscoveredViaSearchOnServer": {
+        "type": "String",
+        "placeholders": {
+            "server": {
+                "type": "String"
+            }
+        }
+    },
+    "userRole": "نقش کاربر",
+    "@userRole": {},
+    "minimumPowerLevel": "حداقل سطح دسترسی {level} است.",
+    "@minimumPowerLevel": {
+        "type": "String",
+        "placeholders": {
+            "level": {
+                "type": "String"
+            }
+        }
+    },
+    "searchIn": "جستجو در گپ \"{chat}\"...",
+    "@searchIn": {
+        "type": "String",
+        "placeholders": {
+            "chat": {
+                "type": "String"
+            }
+        }
+    },
+    "searchMore": "جستجوی بیشتر...",
+    "@searchMore": {},
+    "gallery": "گالری",
+    "@gallery": {},
+    "files": "فایل‌ها",
+    "@files": {},
+    "databaseBuildErrorBody": "امکان ساخت پایگاه داده SQlite وجود ندارد. برنامه فعلاً سعی می‌کند از پایگاه داده قدیمی استفاده کند. لطفاً این خطا را به توسعه‌دهندگان با آدرس {url} گزارش دهید. پیام خطا: {error}",
+    "@databaseBuildErrorBody": {
+        "type": "String",
+        "placeholders": {
+            "url": {
+                "type": "String"
+            },
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "sessionLostBody": "نشست شما از دست رفته است. لطفاً این خطا را به توسعه‌دهندگان با آدرس {url} گزارش دهید. پیام خطا: {error}",
+    "@sessionLostBody": {
+        "type": "String",
+        "placeholders": {
+            "url": {
+                "type": "String"
+            },
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "restoreSessionBody": "برنامه اکنون سعی می‌کند نشست شما را از پشتیبان بازیابی کند. لطفاً این خطا را به توسعه‌دهندگان با آدرس {url} گزارش دهید. پیام خطا: {error}",
+    "@restoreSessionBody": {
+        "type": "String",
+        "placeholders": {
+            "url": {
+                "type": "String"
+            },
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "forwardMessageTo": "پیام را به {roomName} فوروارد کنید؟",
+    "@forwardMessageTo": {
+        "type": "String",
+        "placeholders": {
+            "roomName": {
+                "type": "String"
+            }
+        }
+    },
+    "calls": "تماس‌ها",
+    "emoteKeyboardNoRecents": "اخیراً ایموجی‌ای استفاده نشده است",
+    "globalChatId": "شناسه جهانی گپ",
+    "block": "مسدود کردن",
+    "inviteContactToGroupQuestion": "آیا می‌خواهید مخاطب را به گپ دعوت کنید؟",
+    "tryAgain": "دوباره تلاش کنید",
+    "invalidServerName": "نام سرور نامعتبر است",
+    "redactMessageDescription": "توضیح ویرایش پیام",
+    "optionalRedactReason": "دلیل ویرایش (اختیاری)",
+    "notifyMeFor": "به من اطلاع بده برای",
+    "pleaseEnterYourPhone": "لطفاً شماره تلفن خود را وارد کنید",
+    "redactedBy": "ویرایش شده توسط",
+    "redactedByBecause": "ویرایش شده توسط {user} به دلیل: {reason}",
+    "@redactedByBecause": {
+        "type": "String",
+        "placeholders": {
+            "user": {"type": "String"},
+            "reason": {"type": "String"}
+        }
+    },
+    "sendImages": "ارسال تصاویر",
+    "presenceStyle": "وضعیت:",
+    "youInvitedToBy": "📩 شما با لینک به اینجا دعوت شده‌اید:\n{alias}",
+    "@youInvitedToBy": {
+        "placeholders": {
+            "alias": {"type": "String"}
+        }
+    },
+    "invitedBy": "📩 دعوت شده توسط {user}",
+    "@invitedBy": {
+        "placeholders": {
+            "user": {"type": "String"}
+        }
+    },
+    "hasKnocked": "🚪 {user} درخواست ورود داده است",
+     "@hasKnocked": {
+        "placeholders": {
+            "user": {"type": "String"}
+        }
+    },
+    "usersMustKnock": "کاربران باید درخواست ورود دهند",
+    "noOneCanJoin": "هیچ‌کس نمی‌تواند بپیوندد",
+    "userWouldLikeToChangeTheChat": "{user} مایل است به گپ بپیوندد.",
+    "@userWouldLikeToChangeTheChat": {
+        "placeholders": {
+            "user": {"type": "String"}
+        }
+    },
+    "noPublicLinkHasBeenCreatedYet": "هنوز هیچ لینک عمومی ایجاد نشده است.",
+    "knock": "درخواست ورود",
+    "signInWith": "ورود با",
+    "profileNotFound": "پروفایل پیدا نشد",
+    "setTheme": "تنظیم تم",
+    "inviteGroupChat": "دعوت به گپ گروهی",
+    "invitePrivateChat": "دعوت به گپ خصوصی",
+    "invalidInput": "ورودی نامعتبر",
+    "wrongPinEntered": "پین اشتباه وارد شده است",
+    "groupName": "نام گروه",
+    "groupCanBeFoundViaSearch": "گروه از طریق جستجو قابل یافتن است",
+    "wrongRecoveryKey": "کلید بازیابی اشتباه است",
+    "commandHint_sendraw": "ارسال پیام خام",
+    "passwordsDoNotMatch": "رمزهای عبور مطابقت ندارند",
+    "passwordIsWrong": "رمز عبور اشتباه است",
+    "publicLink": "لینک عمومی",
+    "publicChatAddresses": "آدرس‌های گپ عمومی",
+    "createNewAddress": "ایجاد آدرس جدید",
+    "publicSpaces": "فضاهای عمومی",
+    "transparent": "شفاف",
+    "changelog": "تغییرات نسخه",
+    "sendCanceled": "ارسال لغو شد",
+    "loginWithMatrixId": "ورود با شناسه ماتریکس",
+    "discoverHomeservers": "کشف سرورهای خانه",
+    "whatIsAHomeserver": "سرور خانه چیست؟",
+    "homeserverDescription": "سرور خانه جایی است که حساب شما در آن ذخیره می‌شود.",
+    "doesNotSeemToBeAValidHomeserver": "به نظر نمی‌رسد سرور خانه معتبری باشد",
+    "calculatingFileSize": "در حال محاسبه اندازه فایل...",
+    "prepareSendingAttachment": "در حال آماده‌سازی پیوست برای ارسال...",
+    "sendingAttachment": "در حال ارسال پیوست...",
+    "generatingVideoThumbnail": "در حال تولید تصویر بندانگشتی ویدئو...",
+    "compressVideo": "در حال فشرده‌سازی ویدئو...",
+    "sendingAttachmentCountOfCount": "در حال ارسال پیوست {index} از {length}",
+    "@sendingAttachmentCountOfCount": {
+        "type": "integer",
+        "placeholders": {
+            "index": {
+                "type": "int"
+            },
+            "length": {
+                "type": "int"
+            }
+        }
+    },
+    "serverLimitReached": "محدودیت سرور به پایان رسیده است",
+    "noticeChatBackupDeviceVerification": "تأیید دستگاه برای پشتیبان‌گیری گپ لازم است",
+    "continueText": "ادامه",
+    "welcomeText": "خوش آمدید",
+    "blur": "محو",
+    "opacity": "شفافیت",
+    "setWallpaper": "تنظیم تصویر زمینه",
+    "manageAccount": "مدیریت حساب",
+    "noContactInformationProvided": "سرور هیچ اطلاعات تماسی معتبری ارائه نمی‌دهد",
+    "contactServerAdmin": "تماس با مدیر سرور",
+    "contactServerSecurity": "تماس با امنیت سرور",
+    "supportPage": "صفحه پشتیبانی",
+    "serverInformation": "اطلاعات سرور:",
+    "name": "نام",
+    "version": "نسخه",
+    "website": "وب‌سایت",
+    "compress": "فشرده‌سازی",
+    "boldText": "متن بولد",
+    "italicText": "متن ایتالیک",
+    "strikeThrough": "متن خط‌خورده",
+    "pleaseFillOut": "لطفاً تکمیل کنید",
+    "invalidUrl": "آدرس نامعتبر",
+    "addLink": "افزودن لینک",
+    "unableToJoinChat": "امکان پیوستن به گپ وجود ندارد. شاید طرف مقابل گفتگو را بسته باشد.",
+    "previous": "قبلی",
+    "otherPartyNotLoggedIn": "طرف مقابل در حال حاضر وارد نشده و نمی‌تواند پیام دریافت کند!",
+    "appWantsToUseForLogin": "استفاده از '{server}' برای ورود",
+    "@appWantsToUseForLogin": {
+        "type": "String",
+        "placeholders": {
+            "server": {"type": "String"}
+        }
+    },
+    "appWantsToUseForLoginDescription": "شما به این برنامه و وب‌سایت اجازه می‌دهید اطلاعات شما را به اشتراک بگذارند.",
+    "open": "باز کردن",
+    "appIntroduction": "چتسی به شما امکان می‌دهد با دوستان خود در پیام‌رسان‌های مختلف گفتگو کنید. اطلاعات بیشتر در https://matrix.org یا فقط روی *ادامه* بزنید.",
+    "newChatRequest": "📩 درخواست گپ جدید",
+    "roomNotificationSettings": "تنظیمات اعلان اتاق",
+    "userSpecificNotificationSettings": "تنظیمات اعلان کاربر خاص",
+    "notificationRuleCall": "تماس",
+    "takeAPhoto": "گرفتن عکس",
+    "recordAVideo": "ضبط ویدئو",
+    "optionalMessage": "پیام (اختیاری)",
+    "notSupportedOnThisDevice": "در این دستگاه پشتیبانی نمی‌شود",
+    "enterNewChat": "ورود به گپ جدید",
+    "approve": "تأیید",
+    "youHaveKnocked": "شما درخواست ورود داده‌اید",
+    "commandHint_logout": "خروج از حساب",
+    "commandHint_logoutall": "خروج از همه حساب‌ها"
 }

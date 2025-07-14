@@ -31,6 +31,7 @@ class MessageContent extends StatelessWidget {
   final BorderRadius borderRadius;
   final Timeline timeline;
   final bool selected;
+  final bool hideReplyPreview;
 
   const MessageContent(
     this.event, {
@@ -41,6 +42,7 @@ class MessageContent extends StatelessWidget {
     required this.linkColor,
     required this.borderRadius,
     required this.selected,
+    this.hideReplyPreview = false,
   });
 
   void _verifyOrRequestKey(BuildContext context) async {
@@ -258,6 +260,19 @@ class MessageContent extends StatelessWidget {
             var html = AppConfig.renderHtml && event.isRichMessage
                 ? event.formattedText
                 : event.body;
+            // If hideReplyPreview is true, remove the reply fallback from the message body
+            if (hideReplyPreview && html is String) {
+              // Remove the reply fallback (usually starts with "> " lines)
+              final lines = html.split('\n');
+              int firstNonQuote = 0;
+              for (; firstNonQuote < lines.length; firstNonQuote++) {
+                final line = lines[firstNonQuote].trim();
+                if (!line.startsWith('>') && line.isNotEmpty) {
+                  break;
+                }
+              }
+              html = lines.sublist(firstNonQuote).join('\n').trim();
+            }
             if (event.messageType == MessageTypes.Emote) {
               html = '* $html';
             }

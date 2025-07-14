@@ -347,7 +347,7 @@ class Message extends StatelessWidget {
                                                 RelationshipTypes.thread,
                                               }.contains(
                                                 event.relationshipType,
-                                              ))
+                                              )) ...[
                                                 FutureBuilder<Event?>(
                                                   future: event
                                                       .getReplyEvent(timeline),
@@ -411,15 +411,27 @@ class Message extends StatelessWidget {
                                                     );
                                                   },
                                                 ),
-                                              MessageContent(
-                                                displayEvent,
-                                                textColor: textColor,
-                                                linkColor: linkColor,
-                                                onInfoTab: onInfoTab,
-                                                borderRadius: borderRadius,
-                                                timeline: timeline,
-                                                selected: selected,
-                                              ),
+                                                MessageContent(
+                                                  displayEvent,
+                                                  textColor: textColor,
+                                                  linkColor: linkColor,
+                                                  onInfoTab: onInfoTab,
+                                                  borderRadius: borderRadius,
+                                                  timeline: timeline,
+                                                  selected: selected,
+                                                  hideReplyPreview: true,
+                                                ),
+                                              ]
+                                              else
+                                                MessageContent(
+                                                  displayEvent,
+                                                  textColor: textColor,
+                                                  linkColor: linkColor,
+                                                  onInfoTab: onInfoTab,
+                                                  borderRadius: borderRadius,
+                                                  timeline: timeline,
+                                                  selected: selected,
+                                                ),
                                               if (event.hasAggregatedEvents(
                                                 timeline,
                                                 RelationshipTypes.edit,

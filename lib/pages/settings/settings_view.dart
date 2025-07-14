@@ -227,31 +227,31 @@ class SettingsView extends StatelessWidget {
                             : null,
                   ),
                   Divider(color: theme.dividerColor),
-                  ListTile(
-                    leading: const Icon(Icons.dns_outlined),
-                    title: Text(
-                      L10n.of(context).aboutHomeserver(
-                        Matrix.of(context).client.userID?.domain ??
-                            'homeserver',
-                      ),
-                    ),
-                    onTap: () => context.go('/rooms/settings/homeserver'),
-                    tileColor:
-                        activeRoute.startsWith('/rooms/settings/homeserver')
-                            ? theme.colorScheme.surfaceContainerHigh
-                            : null,
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.privacy_tip_outlined),
-                    title: Text(L10n.of(context).privacy),
-                    onTap: () => launchUrlString(AppConfig.privacyUrl),
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.info_outline_rounded),
-                    title: Text(L10n.of(context).about),
-                    onTap: () => PlatformInfos.showDialog(context),
-                  ),
-                  Divider(color: theme.dividerColor),
+                  // ListTile(
+                  //   leading: const Icon(Icons.dns_outlined),
+                  //   title: Text(
+                  //     L10n.of(context).aboutHomeserver(
+                  //       Matrix.of(context).client.userID?.domain ??
+                  //           'homeserver',
+                  //     ),
+                  //   ),
+                  //   onTap: () => context.go('/rooms/settings/homeserver'),
+                  //   tileColor:
+                  //       activeRoute.startsWith('/rooms/settings/homeserver')
+                  //           ? theme.colorScheme.surfaceContainerHigh
+                  //           : null,
+                  // ),
+                  // ListTile(
+                  //   leading: const Icon(Icons.privacy_tip_outlined),
+                  //   title: Text(L10n.of(context).privacy),
+                  //   onTap: () => launchUrlString(AppConfig.privacyUrl),
+                  // ),
+                  // ListTile(
+                  //   leading: const Icon(Icons.info_outline_rounded),
+                  //   title: Text(L10n.of(context).about),
+                  //   onTap: () => PlatformInfos.showDialog(context),
+                  // ),
+                  // Divider(color: theme.dividerColor),
                   ListTile(
                     leading: const Icon(Icons.logout_outlined),
                     title: Text(L10n.of(context).logout),

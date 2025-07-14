@@ -47,16 +47,16 @@ class ClientChooserButton extends StatelessWidget {
           ],
         ),
       ),
-      PopupMenuItem(
-        value: SettingsAction.invite,
-        child: Row(
-          children: [
-            Icon(Icons.adaptive.share_outlined),
-            const SizedBox(width: 18),
-            Text(L10n.of(context).inviteContact),
-          ],
-        ),
-      ),
+      // PopupMenuItem(
+      //   value: SettingsAction.invite,
+      //   child: Row(
+      //     children: [
+      //       Icon(Icons.adaptive.share_outlined),
+      //       const SizedBox(width: 18),
+      //       Text(L10n.of(context).inviteContact),
+      //     ],
+      //   ),
+      // ),
       PopupMenuItem(
         value: SettingsAction.archive,
         child: Row(
@@ -77,75 +77,75 @@ class ClientChooserButton extends StatelessWidget {
           ],
         ),
       ),
-      const PopupMenuDivider(),
-      for (final bundle in bundles) ...[
-        if (matrix.accountBundles[bundle]!.length != 1 ||
-            matrix.accountBundles[bundle]!.single!.userID != bundle)
-          PopupMenuItem(
-            value: null,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  bundle!,
-                  style: TextStyle(
-                    color: Theme.of(context).textTheme.titleMedium!.color,
-                    fontSize: 14,
-                  ),
-                ),
-                const Divider(height: 1),
-              ],
-            ),
-          ),
-        ...matrix.accountBundles[bundle]!
-            .whereType<Client>()
-            .where((client) => client.isLogged())
-            .map(
-              (client) => PopupMenuItem(
-                value: client,
-                child: FutureBuilder<Profile?>(
-                  future: client.fetchOwnProfile(),
-                  builder: (context, snapshot) => Row(
-                    children: [
-                      Avatar(
-                        mxContent: snapshot.data?.avatarUrl,
-                        name: snapshot.data?.displayName ??
-                            client.userID!.localpart,
-                        size: 32,
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Text(
-                          snapshot.data?.displayName ??
-                              client.userID!.localpart!,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      IconButton(
-                        icon: const Icon(Icons.edit_outlined),
-                        onPressed: () => controller.editBundlesForAccount(
-                          client.userID,
-                          bundle,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-      ],
-      PopupMenuItem(
-        value: SettingsAction.addAccount,
-        child: Row(
-          children: [
-            const Icon(Icons.person_add_outlined),
-            const SizedBox(width: 18),
-            Text(L10n.of(context).addAccount),
-          ],
-        ),
-      ),
+      // const PopupMenuDivider(),
+      // for (final bundle in bundles) ...[
+      //   if (matrix.accountBundles[bundle]!.length != 1 ||
+      //       matrix.accountBundles[bundle]!.single!.userID != bundle)
+      //     PopupMenuItem(
+      //       value: null,
+      //       child: Column(
+      //         crossAxisAlignment: CrossAxisAlignment.start,
+      //         mainAxisSize: MainAxisSize.min,
+      //         children: [
+      //           Text(
+      //             bundle!,
+      //             style: TextStyle(
+      //               color: Theme.of(context).textTheme.titleMedium!.color,
+      //               fontSize: 14,
+      //             ),
+      //           ),
+      //           const Divider(height: 1),
+      //         ],
+      //       ),
+      //     ),
+      //   ...matrix.accountBundles[bundle]!
+      //       .whereType<Client>()
+      //       .where((client) => client.isLogged())
+      //       .map(
+      //         (client) => PopupMenuItem(
+      //           value: client,
+      //           child: FutureBuilder<Profile?>(
+      //             future: client.fetchOwnProfile(),
+      //             builder: (context, snapshot) => Row(
+      //               children: [
+      //                 Avatar(
+      //                   mxContent: snapshot.data?.avatarUrl,
+      //                   name: snapshot.data?.displayName ??
+      //                       client.userID!.localpart,
+      //                   size: 32,
+      //                 ),
+      //                 const SizedBox(width: 12),
+      //                 Expanded(
+      //                   child: Text(
+      //                     snapshot.data?.displayName ??
+      //                         client.userID!.localpart!,
+      //                     overflow: TextOverflow.ellipsis,
+      //                   ),
+      //                 ),
+      //                 const SizedBox(width: 12),
+      //                 IconButton(
+      //                   icon: const Icon(Icons.edit_outlined),
+      //                   onPressed: () => controller.editBundlesForAccount(
+      //                     client.userID,
+      //                     bundle,
+      //                   ),
+      //                 ),
+      //               ],
+      //             ),
+      //           ),
+      //         ),
+      //       ),
+      // ],
+      // PopupMenuItem(
+      //   value: SettingsAction.addAccount,
+      //   child: Row(
+      //     children: [
+      //       const Icon(Icons.person_add_outlined),
+      //       const SizedBox(width: 18),
+      //       Text(L10n.of(context).addAccount),
+      //     ],
+      //   ),
+      // ),
     ];
   }
 
