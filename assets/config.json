@@ -1,11 +1,11 @@
 {
-  "application_name": "Chatsi",
+  "application_name": "Rayka",
   "application_welcome_message": null,
-  "default_homeserver": "https://core.gitanegaran.ir",
+  "default_homeserver": "https://msg-core.tci.ir",
   "web_base_url": "https://fluffychat.im/web",
   "privacy_url": "https://fluffychat.im/en/privacy.html",
   "render_html": false,
   "hide_redacted_events": false,
   "hide_unknown_events": false,
-  "login_banner_path": "assets/chatsi_login_banner.png"
+  "login_banner_path": "assets/rayka_login_banner.png"
 } 

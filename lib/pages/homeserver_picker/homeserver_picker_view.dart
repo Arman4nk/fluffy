@@ -113,7 +113,7 @@ class HomeserverPickerView extends StatelessWidget {
                       child: Hero(
                         tag: 'info-logo',
                         child: Image.asset(
-                          './assets/banner_transparent.png',
+                          './assets/chatsi_login_banner.png',
                           fit: BoxFit.fitWidth,
                         ),
                       ),
