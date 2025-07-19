@@ -1,10 +1,10 @@
-package chat.fluffy.fluffychat
+package chat.karashob.rayka
 
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.embedding.engine.dart.DartExecutor
 import org.unifiedpush.flutter.connector.UnifiedPushReceiver
-
 import android.content.Context
+import chat.karashob.rayka.MainActivity
 
 class UnifiedPushReceiver : UnifiedPushReceiver() {
     override fun getEngine(context: Context): FlutterEngine {
