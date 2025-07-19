@@ -25,7 +25,7 @@ if (flutterVersionName == null) {
 
 android {
     compileSdk = 35
-    namespace = "chat.fluffy.fluffychat"
+    namespace = "chat.karashob.chatsi"
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -36,7 +36,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "chat.fluffy.fluffychat"
+        applicationId "chat.karashob.chatsi"
         minSdkVersion 21
         targetSdkVersion 35
         versionCode flutterVersionCode.toInteger()
