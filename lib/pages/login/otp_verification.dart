@@ -15,14 +15,16 @@ import 'dart:async';
 
 class OtpVerification extends StatefulWidget {
   final String phoneNumber;
-  String sid;
+  final String sid;
   final String submitUrl;
-  String clientSecret;
+  final String clientSecret;
+  final Client client;
   final Function(String) onOtpVerified;
 
-  OtpVerification({
+  const OtpVerification({
     super.key,
     required this.phoneNumber,
+    required this.client,
     required this.sid,
     required this.submitUrl,
     required this.clientSecret,
@@ -112,11 +114,9 @@ class _OtpVerificationState extends State<OtpVerification> {
       );
 
       if (isVerified) {
-        final client = Matrix.of(context).getLoginClient();
-
         try {
           final loginResponse = await MatrixAuthApi.customPhoneLogin(
-            client: client,
+            client: widget.client,
             phoneNumber: await widget.phoneNumber.formatInternationalPhoneNumber() ?? widget.phoneNumber,
             clientSecret: _currentClientSecret ?? widget.clientSecret,
             sid: _currentSid ?? widget.sid,

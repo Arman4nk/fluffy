@@ -1,5 +1,6 @@
 import 'dart:ui' as ui;
 
+import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -16,6 +17,7 @@ import 'package:fluffychat/widgets/avatar.dart';
 import 'package:fluffychat/widgets/matrix.dart';
 import 'package:fluffychat/widgets/member_actions_popup_menu_button.dart';
 import '../../../config/app_config.dart';
+import '../../../utils/adaptive_bottom_sheet.dart';
 import 'message_content.dart';
 import 'message_reactions.dart';
 import 'reply_content.dart';

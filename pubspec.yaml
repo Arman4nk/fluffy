@@ -122,9 +122,7 @@ flutter:
   assets:
     - assets/
     - assets/sounds/
-    - assets/js/
     - assets/vodozemac/
-    - assets/js/package/
     - assets/config.json
 
   fonts:

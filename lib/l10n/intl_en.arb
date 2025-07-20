@@ -3257,7 +3257,7 @@
     "displayNavigationRail": "Show navigation rail on mobile",
     "customReaction": "Custom reaction",
     "moreEvents": "More events",
-    "declineInvitation": "Decline invitation"
+    "declineInvitation": "Decline invitation",
     "wrongNumber": "Wrong number? Edit number",
     "@wrongNumber": {
         "type": "String",

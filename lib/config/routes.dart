@@ -53,7 +53,7 @@ abstract class AppRoutes {
   ) =>
       Matrix.of(context).widget.clients.any((client) => client.isLogged())
           ? null
-          : '/home';
+          : '/login';
 
   AppRoutes();
 
@@ -67,11 +67,13 @@ abstract class AppRoutes {
     ),
     GoRoute(
       path: '/login',
-      pageBuilder: (context, state) => defaultPageBuilder(
-        context,
-        state,
-        const Login(client: state.extra as Client),
-      ),
+      pageBuilder: (context, state) {
+        return defaultPageBuilder(
+          context,
+          state,
+          const Login(),
+        );
+      },
       redirect: loggedInRedirect,
     ),
     GoRoute(
@@ -255,7 +257,7 @@ abstract class AppRoutes {
                           pageBuilder: (context, state) => defaultPageBuilder(
                             context,
                             state,
-                            Login(client: state.extra as Client),
+                            const Login(),
                           ),
                           redirect: loggedOutRedirect,
                         ),
