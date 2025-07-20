@@ -25,7 +25,8 @@ enum LoginMethod {
 }
 
 class Login extends StatefulWidget {
-  const Login({super.key});
+  final Client client;
+  const Login({required this.client, super.key});
 
   @override
   LoginController createState() => LoginController();
@@ -85,8 +86,6 @@ class LoginController extends State<Login> with ChangeNotifier {
     });
 
     try {
-      final client = Matrix.of(context).getLoginClient();
-
       if (_loginMethod == LoginMethod.password) {
         if (usernameController.text.isEmpty) {
           setState(() {
