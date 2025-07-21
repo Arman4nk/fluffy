@@ -32,7 +32,8 @@ class LoginController extends State<Login> with ChangeNotifier {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController otpController = TextEditingController();
 
-  late Client client;
+  Client? client;
+  bool loading = true;
 
   LoginMethod _loginMethod = LoginMethod.phone;
   LoginMethod get loginMethod => _loginMethod;
@@ -46,7 +47,10 @@ class LoginController extends State<Login> with ChangeNotifier {
 
     void fn () async {
       client = await Matrix.of(context).getLoginClient();
-      client.homeserver = Uri.parse(AppConfig.defaultHomeserver);
+      client!.homeserver = Uri.parse(AppConfig.defaultHomeserver);
+      setState(() {
+        loading = false;
+      });
     }
 
     fn();
@@ -58,7 +62,6 @@ class LoginController extends State<Login> with ChangeNotifier {
     });
   }
 
-  bool loading = false;
   bool showPassword = false;
   String? usernameError;
   String? passwordError;
@@ -103,7 +106,7 @@ class LoginController extends State<Login> with ChangeNotifier {
           return;
         }
 
-        await client.login(
+        await client!.login(
           LoginType.mLoginPassword,
           identifier: AuthenticationUserIdentifier(
             user: usernameController.text,
@@ -176,7 +179,7 @@ class LoginController extends State<Login> with ChangeNotifier {
         MaterialPageRoute(
           builder: (context) => OtpVerification(
             phoneNumber: phoneController.text,
-            client: client,
+            client: client!,
             sid: result['sid'],
             submitUrl: result['submit_url'],
             clientSecret: result['client_secret'],
@@ -231,7 +234,7 @@ class LoginController extends State<Login> with ChangeNotifier {
     final response = await showFutureLoadingDialog(
       context: context,
       future: () =>
-          client.requestTokenToResetPasswordEmail(
+          client!.requestTokenToResetPasswordEmail(
                 clientSecret,
                 input,
                 sendAttempt++,
@@ -272,7 +275,7 @@ class LoginController extends State<Login> with ChangeNotifier {
     };
     final success = await showFutureLoadingDialog(
       context: context,
-      future: () => client.request(
+      future: () => client!.request(
             RequestType.POST,
             '/widget.client/v3/account/password',
             data: data,
@@ -291,7 +294,12 @@ class LoginController extends State<Login> with ChangeNotifier {
   static int sendAttempt = 0;
 
   @override
-  Widget build(BuildContext context) => LoginView(this);
+  Widget build(BuildContext context) {
+    if (loading || client == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
+    return LoginView(this);
+  }
 }
 
 extension on String {

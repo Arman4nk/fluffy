@@ -19,7 +19,7 @@ class LoginView extends StatelessWidget {
     final theme = Theme.of(context);
     final l10n = L10n.of(context);
 
-    final homeserver = controller.client.homeserver
+    final homeserver = controller.client!.homeserver
         .toString()
         .replaceFirst('https://', '');
     final title = l10n.logInTo(homeserver);
