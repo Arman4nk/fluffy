@@ -32,12 +32,12 @@ android {
     }
 
     signingConfigs {
-       create("release") {
-            keyAlias = "dummyAlias"
-            keyPassword = "dummyPassword"
-            storeFile = file("dummy.keystore")
-            storePassword = "dummyStorePassword"
-        }
+        // create("release") {
+        //     keyAlias = "dummyAlias"
+        //     keyPassword = "dummyPassword"
+        //     storeFile = file("dummy.keystore")
+        //     storePassword = "dummyStorePassword"
+        // }
     }
 
     val keystoreProperties = Properties()
@@ -62,7 +62,7 @@ android {
 
     buildTypes {
         release {
-            signingConfig = signingConfigs.getByName("release")
+            // signingConfig = signingConfigs.getByName("release")
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
