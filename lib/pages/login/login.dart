@@ -295,9 +295,9 @@ class LoginController extends State<Login> with ChangeNotifier {
 
   @override
   Widget build(BuildContext context) {
-    if (loading || client == null) {
-      return const Center(child: CircularProgressIndicator());
-    }
+    // if (loading || client == null) {
+    //   return const SizedBox();
+    // }
     return LoginView(this);
   }
 }
