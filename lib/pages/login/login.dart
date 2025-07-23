@@ -2,18 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-
 import 'package:matrix/matrix.dart';
 
 import 'package:fluffychat/l10n/l10n.dart';
-import 'package:fluffychat/utils/localized_exception_extension.dart';
 import 'package:fluffychat/widgets/adaptive_dialogs/show_ok_cancel_alert_dialog.dart';
 import 'package:fluffychat/widgets/adaptive_dialogs/show_text_input_dialog.dart';
 import 'package:fluffychat/widgets/future_loading_dialog.dart';
 import 'package:fluffychat/widgets/matrix.dart';
-import '../../utils/platform_infos.dart';
 import '../../config/app_config.dart';
 import 'login_view.dart';
 import 'otp_verification.dart';
@@ -37,6 +32,9 @@ class LoginController extends State<Login> with ChangeNotifier {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController otpController = TextEditingController();
 
+  Client? client;
+  bool loading = true;
+
   LoginMethod _loginMethod = LoginMethod.phone;
   LoginMethod get loginMethod => _loginMethod;
 
@@ -46,8 +44,16 @@ class LoginController extends State<Login> with ChangeNotifier {
   void initState() {
     super.initState();
     // Set default homeserver
-    Matrix.of(context).getLoginClient().homeserver =
-        Uri.parse(AppConfig.defaultHomeserver);
+
+    void fn () async {
+      client = await Matrix.of(context).getLoginClient();
+      client!.homeserver = Uri.parse(AppConfig.defaultHomeserver);
+      setState(() {
+        loading = false;
+      });
+    }
+
+    fn();
   }
 
   void setLoginMethod(LoginMethod method) {
@@ -56,7 +62,6 @@ class LoginController extends State<Login> with ChangeNotifier {
     });
   }
 
-  bool loading = false;
   bool showPassword = false;
   String? usernameError;
   String? passwordError;
@@ -85,8 +90,6 @@ class LoginController extends State<Login> with ChangeNotifier {
     });
 
     try {
-      final client = Matrix.of(context).getLoginClient();
-
       if (_loginMethod == LoginMethod.password) {
         if (usernameController.text.isEmpty) {
           setState(() {
@@ -103,7 +106,7 @@ class LoginController extends State<Login> with ChangeNotifier {
           return;
         }
 
-        await client.login(
+        await client!.login(
           LoginType.mLoginPassword,
           identifier: AuthenticationUserIdentifier(
             user: usernameController.text,
@@ -176,13 +179,13 @@ class LoginController extends State<Login> with ChangeNotifier {
         MaterialPageRoute(
           builder: (context) => OtpVerification(
             phoneNumber: phoneController.text,
+            client: client!,
             sid: result['sid'],
             submitUrl: result['submit_url'],
             clientSecret: result['client_secret'],
             onOtpVerified: (otp) async {
               try {
                 setState(() => loading = true);
-                final client = Matrix.of(context).getLoginClient();
                 // The login and navigation are now handled in the OtpVerification widget
               } catch (e) {
                 if (!mounted) return;
@@ -231,7 +234,7 @@ class LoginController extends State<Login> with ChangeNotifier {
     final response = await showFutureLoadingDialog(
       context: context,
       future: () =>
-          Matrix.of(context).getLoginClient().requestTokenToResetPasswordEmail(
+          client!.requestTokenToResetPasswordEmail(
                 clientSecret,
                 input,
                 sendAttempt++,
@@ -272,9 +275,9 @@ class LoginController extends State<Login> with ChangeNotifier {
     };
     final success = await showFutureLoadingDialog(
       context: context,
-      future: () => Matrix.of(context).getLoginClient().request(
+      future: () => client!.request(
             RequestType.POST,
-            '/client/v3/account/password',
+            '/widget.client/v3/account/password',
             data: data,
           ),
     );
@@ -291,7 +294,12 @@ class LoginController extends State<Login> with ChangeNotifier {
   static int sendAttempt = 0;
 
   @override
-  Widget build(BuildContext context) => LoginView(this);
+  Widget build(BuildContext context) {
+    if (loading || client == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
+    return LoginView(this);
+  }
 }
 
 extension on String {

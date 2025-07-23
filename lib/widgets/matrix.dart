@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +17,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:universal_html/html.dart' as html;
 import 'package:url_launcher/url_launcher_string.dart';
 
-import 'package:fluffychat/config/app_config.dart';
-import 'package:fluffychat/config/setting_keys.dart';
 import 'package:fluffychat/l10n/l10n.dart';
 import 'package:fluffychat/utils/client_manager.dart';
 import 'package:fluffychat/utils/init_with_restore.dart';
@@ -30,6 +27,8 @@ import 'package:fluffychat/utils/voip_plugin.dart';
 import 'package:fluffychat/widgets/adaptive_dialogs/show_ok_cancel_alert_dialog.dart';
 import 'package:fluffychat/widgets/fluffy_chat_app.dart';
 import 'package:fluffychat/widgets/future_loading_dialog.dart';
+import '../config/app_config.dart';
+import '../config/setting_keys.dart';
 import '../pages/key_verification/key_verification_dialog.dart';
 import '../utils/account_bundles.dart';
 import '../utils/background_push.dart';
@@ -75,9 +74,6 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
   BackgroundPush? backgroundPush;
 
   Client get client {
-    if (widget.clients.isEmpty) {
-      widget.clients.add(getLoginClient());
-    }
     if (_activeClient < 0 || _activeClient >= widget.clients.length) {
       return currentBundle!.first!;
     }
@@ -153,12 +149,13 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
   AudioPlayer? audioPlayer;
   final ValueNotifier<String?> voiceMessageEventId = ValueNotifier(null);
 
-  Client getLoginClient() {
+  Future<Client> getLoginClient() async {
     if (widget.clients.isNotEmpty && !client.isLogged()) {
       client.homeserver = Uri.parse(AppConfig.defaultHomeserver);
       return client;
     }
-    final candidate = _loginClientCandidate ??= ClientManager.createClient(
+    final candidate =
+        _loginClientCandidate ??= await ClientManager.createClient(
       '${AppConfig.applicationName}-${DateTime.now().millisecondsSinceEpoch}',
       store,
     )..onLoginStateChanged
@@ -178,6 +175,7 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
         FluffyChatApp.router.go('/rooms');
       });
     candidate.homeserver = Uri.parse(AppConfig.defaultHomeserver);
+    if (widget.clients.isEmpty) widget.clients.add(candidate);
     return candidate;
   }
 
@@ -224,25 +222,21 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     // First load config, then initialize matrix and settings
+    initMatrix();
     initConfig().then((_) {
-      initMatrix();
       initSettings();
     });
   }
 
   Future<void> initConfig() async {
     try {
-      // Load only from assets for all platforms
       final configJsonString = await DefaultAssetBundle.of(context).loadString('assets/config.json');
-      Logs().v('[ConfigLoader] Found config.json in assets: $configJsonString');
-
       final configJson = json.decode(configJsonString);
-      Logs().v('[ConfigLoader] Parsed config: $configJson');
       AppConfig.loadFromJson(configJson);
-      Logs().v('[ConfigLoader] Successfully loaded config.json');
-      Logs().v('[ConfigLoader] Current login banner path: ${AppConfig.loginBannerPath}');
-    } catch (e, s) {
-      Logs().e('[ConfigLoader] Error loading config.json', e, s);
+    } on FormatException catch (_) {
+      Logs().v('[ConfigLoader] config.json not found');
+    } catch (e) {
+      Logs().v('[ConfigLoader] config.json not found', e);
     }
   }
 
@@ -288,12 +282,12 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
     onLoginStateChanged[name] ??= c.onLoginStateChanged.stream.listen((state) {
       final loggedInWithMultipleClients = widget.clients.length > 1;
       if (state == LoginState.loggedOut) {
-        InitWithRestoreExtension.deleteSessionBackup(name);
-      }
-      if (loggedInWithMultipleClients && state != LoginState.loggedIn) {
         _cancelSubs(c.clientName);
         widget.clients.remove(c);
         ClientManager.removeClientNameFromStore(c.clientName, store);
+        InitWithRestoreExtension.deleteSessionBackup(name);
+      }
+      if (loggedInWithMultipleClients && state != LoginState.loggedIn) {
         ScaffoldMessenger.of(
           FluffyChatApp.router.routerDelegate.navigatorKey.currentContext ??
               context,
@@ -382,15 +376,16 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    Logs().v('AppLifecycleState = $state');
     final foreground = state != AppLifecycleState.inactive &&
         state != AppLifecycleState.paused;
-    client.syncPresence =
-        state == AppLifecycleState.resumed ? null : PresenceType.unavailable;
-    if (PlatformInfos.isMobile) {
-      client.backgroundSync = foreground;
-      client.requestHistoryOnLimitedTimeline = !foreground;
-      Logs().v('Set background sync to', foreground);
+    for (final client in widget.clients) {
+      client.syncPresence =
+          state == AppLifecycleState.resumed ? null : PresenceType.unavailable;
+      if (PlatformInfos.isMobile) {
+        client.backgroundSync = foreground;
+        client.requestHistoryOnLimitedTimeline = !foreground;
+        Logs().v('Set background sync to', foreground);
+      }
     }
   }
 
@@ -413,10 +408,6 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
     AppConfig.hideUnknownEvents =
         store.getBool(SettingKeys.hideUnknownEvents) ??
             AppConfig.hideUnknownEvents;
-
-    AppConfig.hideUnimportantStateEvents =
-        store.getBool(SettingKeys.hideUnimportantStateEvents) ??
-            AppConfig.hideUnimportantStateEvents;
 
     AppConfig.separateChatTypes =
         store.getBool(SettingKeys.separateChatTypes) ??

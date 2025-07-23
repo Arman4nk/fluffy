@@ -25,6 +25,8 @@ abstract class AppConfig {
   static String _privacyUrl =
       'https://github.com/krille-chan/fluffychat/blob/main/PRIVACY.md';
 
+  static const Set<String> defaultReactions = {'👍', '❤️', '😂', '😮', '😢'};
+
   static String get privacyUrl => _privacyUrl;
   static const String website = 'https://fluffychat.im';
   static const String enablePushTutorial =
@@ -52,7 +54,6 @@ abstract class AppConfig {
   static bool renderHtml = true;
   static bool hideRedactedEvents = false;
   static bool hideUnknownEvents = true;
-  static bool hideUnimportantStateEvents = true;
   static bool separateChatTypes = false;
   static bool autoplayImages = true;
   static bool sendTypingNotifications = true;
@@ -63,7 +64,6 @@ abstract class AppConfig {
   static bool displayNavigationRail = false;
   static bool experimentalVoip = false;
   static const bool hideTypingUsernames = false;
-  static const bool hideAllStateEvents = false;
   static const String inviteLinkPrefix = 'https://matrix.to/#/';
   static const String deepLinkPrefix = 'im.fluffychat://chat/';
   static const String schemePrefix = 'matrix:';
