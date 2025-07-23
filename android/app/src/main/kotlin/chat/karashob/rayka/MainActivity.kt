@@ -1,16 +1,18 @@
+<<<<<<<< HEAD:android/app/src/main/kotlin/chat/karashob/rayka/MainActivity.kt
 package chat.karashob.rayka
+========
+package chat.karashob.chatsi
+>>>>>>>> main:android/app/src/main/kotlin/chat/karashob/chatsi/MainActivity.kt
 
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 
 import android.content.Context
-import androidx.multidex.MultiDex
 
 class MainActivity : FlutterActivity() {
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
-        MultiDex.install(this)
     }
 
 
