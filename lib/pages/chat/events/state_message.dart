@@ -6,6 +6,7 @@ import 'package:matrix/matrix.dart';
 import 'package:fluffychat/config/themes.dart';
 import 'package:fluffychat/l10n/l10n.dart';
 import 'package:fluffychat/utils/matrix_sdk_extensions/matrix_locals.dart';
+import 'package:fluffychat/utils/persian_text_direction.dart';
 import '../../../config/app_config.dart';
 
 class StateMessage extends StatelessWidget {
@@ -65,6 +66,11 @@ class StateMessage extends StatelessWidget {
                               ),
                             ],
                           ],
+                        ),
+                        textDirection: PersianTextDirection.getDirectionByFirstChar(
+                          event.calcLocalizedBodyFallback(
+                            MatrixLocals(L10n.of(context)),
+                          ),
                         ),
                         textAlign: TextAlign.center,
                         style: TextStyle(

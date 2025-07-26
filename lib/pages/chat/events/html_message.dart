@@ -10,6 +10,7 @@ import 'package:html/parser.dart' as parser;
 import 'package:matrix/matrix.dart';
 
 import 'package:fluffychat/utils/event_checkbox_extension.dart';
+import 'package:fluffychat/utils/persian_text_direction.dart';
 import 'package:fluffychat/widgets/avatar.dart';
 import 'package:fluffychat/widgets/future_loading_dialog.dart';
 import 'package:fluffychat/widgets/mxc_image.dart';
@@ -509,12 +510,15 @@ class HtmlMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final element = parser.parse(html).body ?? dom.Element.html('');
+    final textDirection = PersianTextDirection.getDirectionByFirstChar(html);
+    
     return Text.rich(
       _renderHtml(element, context),
       style: TextStyle(
         fontSize: fontSize,
         color: textColor,
       ),
+      textDirection: textDirection,
       maxLines: limitHeight ? 64 : null,
       overflow: TextOverflow.fade,
     );

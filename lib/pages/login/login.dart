@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fluffychat/widgets/layouts/login_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:matrix/matrix.dart';
@@ -296,7 +297,7 @@ class LoginController extends State<Login> with ChangeNotifier {
   @override
   Widget build(BuildContext context) {
     if (loading || client == null) {
-      return const SizedBox();
+      return  const LoginScaffold(body: Center(child: CircularProgressIndicator()));
     }
     return LoginView(this);
   }
