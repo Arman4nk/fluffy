@@ -9,12 +9,13 @@ import 'package:slugify/slugify.dart';
 import 'package:fluffychat/config/setting_keys.dart';
 import 'package:fluffychat/l10n/l10n.dart';
 import 'package:fluffychat/utils/markdown_context_builder.dart';
+import 'package:fluffychat/utils/persian_text_direction.dart';
 import 'package:fluffychat/widgets/mxc_image.dart';
 import '../../widgets/avatar.dart';
 import '../../widgets/matrix.dart';
 import 'command_hints.dart';
 
-class InputBar extends StatelessWidget {
+class InputBar extends StatefulWidget {
   final Room room;
   final int? minLines;
   final int? maxLines;
@@ -394,71 +395,95 @@ class InputBar extends StatelessWidget {
   }
 
   @override
+  State<InputBar> createState() => _InputBarState();
+}
+
+class _InputBarState extends State<InputBar> {
+  TextDirection _inputDirection = TextDirection.rtl;
+  String _lastFirstChar = '';
+
+  @override
   Widget build(BuildContext context) {
     return TypeAheadField<Map<String, String?>>(
       direction: VerticalDirection.up,
       hideOnEmpty: true,
       hideOnLoading: true,
-      controller: controller,
-      focusNode: focusNode,
+      controller: widget.controller,
+      focusNode: widget.focusNode,
       hideOnSelect: false,
       debounceDuration: const Duration(milliseconds: 50),
-      // show suggestions after 50ms idle time (default is 300)
-      builder: (context, controller, focusNode) => TextField(
-        controller: controller,
-        focusNode: focusNode,
-        readOnly: readOnly,
-        contextMenuBuilder: (c, e) => markdownContextBuilder(c, e, controller),
-        contentInsertionConfiguration: ContentInsertionConfiguration(
-          onContentInserted: (KeyboardInsertedContent content) {
-            final data = content.data;
-            if (data == null) return;
-
-            final file = MatrixFile(
-              mimeType: content.mimeType,
-              bytes: data,
-              name: content.uri.split('/').last,
-            );
-            room.sendFileEvent(
-              file,
-              shrinkImageMaxDimension: 1600,
-            );
+      builder: (context, controller, focusNode) {
+        return TextField(
+          controller: controller,
+          focusNode: focusNode,
+          readOnly: widget.readOnly,
+          textDirection: _inputDirection,
+          contextMenuBuilder: (c, e) => markdownContextBuilder(c, e, controller),
+          contentInsertionConfiguration: ContentInsertionConfiguration(
+            onContentInserted: (KeyboardInsertedContent content) {
+              final data = content.data;
+              if (data == null) return;
+              final file = MatrixFile(
+                mimeType: content.mimeType,
+                bytes: data,
+                name: content.uri.split('/').last,
+              );
+              widget.room.sendFileEvent(
+                file,
+                shrinkImageMaxDimension: 1600,
+              );
+            },
+          ),
+          minLines: widget.minLines,
+          maxLines: widget.maxLines,
+          keyboardType: widget.keyboardType!,
+          textInputAction: widget.textInputAction,
+          autofocus: widget.autofocus!,
+          inputFormatters: [
+            LengthLimitingTextInputFormatter((maxPDUSize / 3).floor()),
+          ],
+          onSubmitted: (text) {
+            widget.onSubmitted!(text);
           },
-        ),
-        minLines: minLines,
-        maxLines: maxLines,
-        keyboardType: keyboardType!,
-        textInputAction: textInputAction,
-        autofocus: autofocus!,
-        inputFormatters: [
-          LengthLimitingTextInputFormatter((maxPDUSize / 3).floor()),
-        ],
-        onSubmitted: (text) {
-          // fix for library for now
-          // it sets the types for the callback incorrectly
-          onSubmitted!(text);
-        },
-        maxLength:
-            AppSettings.textMessageMaxLength.getItem(Matrix.of(context).store),
-        decoration: decoration,
-        onChanged: (text) {
-          // fix for the library for now
-          // it sets the types for the callback incorrectly
-          onChanged!(text);
-        },
-        textCapitalization: TextCapitalization.sentences,
-      ),
-
-      suggestionsCallback: getSuggestions,
-      itemBuilder: (c, s) => buildSuggestion(c, s, Matrix.of(context).client),
+          maxLength:
+              AppSettings.textMessageMaxLength.getItem(Matrix.of(context).store),
+          decoration: widget.decoration,
+          onChanged: (text) {
+            String firstChar = text.trimLeft().isNotEmpty ? text.trimLeft()[0] : '';
+            if (text.trim().isEmpty) {
+              if (_inputDirection != TextDirection.rtl) {
+                setState(() {
+                  _inputDirection = TextDirection.rtl;
+                  _lastFirstChar = '';
+                });
+              }
+            } else if (firstChar != _lastFirstChar) {
+              if (RegExp(r'[\u0600-\u06FF]').hasMatch(firstChar)) {
+                setState(() {
+                  _inputDirection = TextDirection.rtl;
+                  _lastFirstChar = firstChar;
+                });
+              } else {
+                setState(() {
+                  _inputDirection = TextDirection.ltr;
+                  _lastFirstChar = firstChar;
+                });
+              }
+            }
+            widget.onChanged!(text);
+          },
+          textCapitalization: TextCapitalization.sentences,
+        );
+      },
+      suggestionsCallback: widget.getSuggestions,
+      itemBuilder: (c, s) => widget.buildSuggestion(c, s, Matrix.of(context).client),
       onSelected: (Map<String, String?> suggestion) =>
-          insertSuggestion(context, suggestion),
+          widget.insertSuggestion(context, suggestion),
       errorBuilder: (BuildContext context, Object? error) =>
           const SizedBox.shrink(),
       loadingBuilder: (BuildContext context) => const SizedBox.shrink(),
-      // fix loading briefly flickering a dark box
       emptyBuilder: (BuildContext context) =>
-          const SizedBox.shrink(), // fix loading briefly showing no suggestions
+          const SizedBox.shrink(),
     );
   }
 }
