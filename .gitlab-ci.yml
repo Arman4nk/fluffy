@@ -1,0 +1,39 @@
+.productionOnlyChatsi: &productionOnlyChatsi
+  only:
+    - /^v.*$/
+  except:
+    - branches
+
+stages:
+  - build
+  - deploy
+
+variables:
+  CONTAINER_NAME: fluffy-web
+  IMAGE_NAME: matrix/fluffy-web
+  TAG_COMMIT: $LOCAL_REGISTRY/$IMAGE_NAME:$CI_COMMIT_REF_NAME
+  #GIT_SSL_NO_VERIFY: "true"
+
+build:
+  stage: build
+  retry: 2
+  script:
+    - echo -n $LOCAL_REGISTRY_PASS | docker login -u $LOCAL_REGISTRY_USER --password-stdin $LOCAL_REGISTRY
+    - DOCKER_BUILDKIT=1 docker build -t  $TAG_COMMIT -f DockerFileWeb .
+    - docker push $TAG_COMMIT
+  tags:
+    - matrix
+  only:
+    - tags
+
+productionOnlyChatsi:
+  stage: deploy
+  <<: *productionOnlyChatsi
+  retry: 2
+  script:
+    - echo -n $LOCAL_REGISTRY_PASS | docker login -u $LOCAL_REGISTRY_USER --password-stdin $LOCAL_REGISTRY
+    - docker pull $TAG_COMMIT
+    - docker container rm -f $CONTAINER_NAME || true
+    - docker run -d -p 8888:80  --restart=always --network matrix --name $CONTAINER_NAME $TAG_COMMIT
+  tags:
+    - matrix
