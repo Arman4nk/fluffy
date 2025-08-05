@@ -1,0 +1,8 @@
+FROM nginx:stable-alpine AS serve
+# Copy the built files from the 'build' stage to Nginx's web directory
+COPY ./buildWeb/web.zip /usr/share/nginx/html
+RUN cd /usr/share/nginx/html; unzip web.zip; rm web.zip; mv web/* /usr/share/nginx/html
+# Expose port 80 for web traffic
+EXPOSE 80
+# Start Nginx in the foreground
+CMD ["nginx", "-g", "daemon off;"]
