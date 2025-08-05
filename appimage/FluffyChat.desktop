@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 Version=1.0
-Name=FluffyChat
+Name=Chatsi
 Comment=Matrix Client. Chat with your friends
 Exec=AppRun
 Icon=fluffychat

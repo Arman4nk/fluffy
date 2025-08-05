@@ -1,5 +1,5 @@
-import java.util.Properties
 import java.io.FileInputStream
+import java.util.Properties
 
 plugins {
     id("com.android.application")
@@ -17,7 +17,7 @@ dependencies {
 }
 
 android {
-    namespace = "chat.karashob.chatsi"
+    namespace = "chat.karashab.chatsi"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = "27.0.12077973"
 
@@ -33,10 +33,10 @@ android {
 
     signingConfigs {
          create("release") {
-             keyAlias = "dummyAlias"
-             keyPassword = "dummyPassword"
-             storeFile = file("dummy.keystore")
-             storePassword = "dummyStorePassword"
+             keyAlias = "Rayka"
+             keyPassword = "dNvOGFy75JQm1PBH"
+             storeFile = file("Rayka.jks")
+             storePassword = "UJUBJxjqciiKS43H"
          }
     }
 
@@ -53,7 +53,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "chat.karashob.chatsi"
+        applicationId = "chat.karashab.chatsi"
         minSdk = 21
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode

@@ -657,7 +657,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "fluffychat": "FluffyChat",
+  "fluffychat": "Chatsi",
   "@fluffychat": {
     "type": "String",
     "placeholders": {}
@@ -824,7 +824,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "inviteText": "{username} har invitert deg til FluffyChat. \n1. Installer FluffyChat: https://fluffychat.im \n2. Registrer deg eller logg inn \n3. Åpne invitasjonslenken: {link}",
+  "inviteText": "{username} har invitert deg til Chatsi. \n1. Installer Chatsi: https://fluffychat.im \n2. Registrer deg eller logg inn \n3. Åpne invitasjonslenken: {link}",
   "@inviteText": {
     "type": "String",
     "placeholders": {
@@ -986,7 +986,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "newMessageInFluffyChat": "Ny melding i FluffyChat",
+  "newMessageInFluffyChat": "Ny melding i Chatsi",
   "@newMessageInFluffyChat": {
     "type": "String",
     "placeholders": {}
@@ -1011,7 +1011,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "noGoogleServicesWarning": "Bruk https://microg.org/ for å få Google-tjenester (uten at det går ut over personvernet) for å få push-merknader i FluffyChat:",
+  "noGoogleServicesWarning": "Bruk https://microg.org/ for å få Google-tjenester (uten at det går ut over personvernet) for å få push-merknader i Chatsi:",
   "@noGoogleServicesWarning": {
     "type": "String",
     "placeholders": {}
@@ -1472,7 +1472,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "title": "FluffyChat",
+  "title": "Chatsi",
   "@title": {
     "description": "Title for the application",
     "type": "String",
@@ -2327,11 +2327,11 @@
   "@screenSharingDetail": {},
   "callingPermissions": "Anropstillatelser",
   "@callingPermissions": {},
-  "callingAccountDetails": "Lar FluffyChat bruke den innebygde Android-oppringingsappen.",
+  "callingAccountDetails": "Lar Chatsi bruke den innebygde Android-oppringingsappen.",
   "@callingAccountDetails": {},
   "appearOnTop": "Vis øverst",
   "@appearOnTop": {},
-  "otherCallingPermissions": "Mikrofon, kamera og andre FluffyChat-tillatelser",
+  "otherCallingPermissions": "Mikrofon, kamera og andre Chatsi-tillatelser",
   "@otherCallingPermissions": {},
   "whyIsThisMessageEncrypted": "Hvorfor er denne meldingen uleselig?",
   "@whyIsThisMessageEncrypted": {},
