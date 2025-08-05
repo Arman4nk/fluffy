@@ -1,4 +1,4 @@
-*Thank you so much for your contribution to FluffyChat ❤️❤️❤️*
+*Thank you so much for your contribution to Chatsi ❤️❤️❤️*
 
 Please make sure that your Pull Request meet the following **acceptance criteria**:
 

@@ -1,8 +1,8 @@
 repo_url = "https://fluffychat.im/repo/stable/repo"
-repo_name = "FluffyChat repo"
+repo_name = "Chatsi repo"
 repo_icon = "fdroid-icon.png"
 repo_description = """
-FluffyChat repo
+Chatsi repo
 """
 
 archive_older = 0
