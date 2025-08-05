@@ -830,7 +830,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "fluffychat": "Chatsi",
+  "fluffychat": "Rayka",
   "@fluffychat": {
     "type": "String",
     "placeholders": {}
@@ -1002,7 +1002,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "inviteText": "{username} sizi Chatsi'e davet etti.\n1. fluffychat.im adresini ziyaret edin ve uygulamayı kurun \n2. Kaydolun veya oturum açın \n3. Davet bağlantısını açın: \n {link}",
+  "inviteText": "{username} sizi Rayka'e davet etti.\n1. fluffychat.im adresini ziyaret edin ve uygulamayı kurun \n2. Kaydolun veya oturum açın \n3. Davet bağlantısını açın: \n {link}",
   "@inviteText": {
     "type": "String",
     "placeholders": {
@@ -1174,7 +1174,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "newMessageInFluffyChat": "💬 Chatsi'te yeni mesaj",
+  "newMessageInFluffyChat": "💬 Rayka'te yeni mesaj",
   "@newMessageInFluffyChat": {
     "type": "String",
     "placeholders": {}
@@ -1796,7 +1796,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "title": "Chatsi",
+  "title": "Rayka",
   "@title": {
     "description": "Title for the application",
     "type": "String",
@@ -2352,7 +2352,7 @@
   "@dehydrateWarning": {},
   "hydrateTorLong": "TOR'da en son oturumunuzu dışa aktardınız mı? Hızlıca içe aktarın ve sohbete devam edin.",
   "@hydrateTorLong": {},
-  "indexedDbErrorLong": "Mesaj saklama özelliği ne yazık ki öntanımlı olarak gizli modda etkin değildir.\nLütfen\n - about:config sayfasına gidin ve\n - dom.indexedDB.privateBrowsing.enabled seçeneğini true olarak ayarlayın\nAksi takdirde Chatsi çalıştırılamaz.",
+  "indexedDbErrorLong": "Mesaj saklama özelliği ne yazık ki öntanımlı olarak gizli modda etkin değildir.\nLütfen\n - about:config sayfasına gidin ve\n - dom.indexedDB.privateBrowsing.enabled seçeneğini true olarak ayarlayın\nAksi takdirde Rayka çalıştırılamaz.",
   "@indexedDbErrorLong": {},
   "user": "Kullanıcı",
   "@user": {},
@@ -2381,7 +2381,7 @@
   "@screenSharingTitle": {},
   "callingPermissions": "Arama izinleri",
   "@callingPermissions": {},
-  "callingAccountDetails": "Chatsi'in yerel android telefon uygulamasını kullanmasına izin verir.",
+  "callingAccountDetails": "Rayka'in yerel android telefon uygulamasını kullanmasına izin verir.",
   "@callingAccountDetails": {},
   "appearOnTop": "Üstte görün",
   "@appearOnTop": {},
@@ -2391,13 +2391,13 @@
   "@enterRoom": {},
   "allSpaces": "Tüm alanlar",
   "@allSpaces": {},
-  "otherCallingPermissions": "Mikrofon, kamera ve diğer Chatsi izinleri",
+  "otherCallingPermissions": "Mikrofon, kamera ve diğer Rayka izinleri",
   "@otherCallingPermissions": {},
   "foregroundServiceRunning": "Bu bildirim, ön plan hizmeti çalışırken görünür.",
   "@foregroundServiceRunning": {},
   "callingAccount": "Arama hesabı",
   "@callingAccount": {},
-  "appearOnTopDetails": "Uygulamanın üstte görünmesine izin verir (Chatsi'ı zaten bir arama hesabı olarak ayarladıysanız gerekli değildir)",
+  "appearOnTopDetails": "Uygulamanın üstte görünmesine izin verir (Rayka'ı zaten bir arama hesabı olarak ayarladıysanız gerekli değildir)",
   "@appearOnTopDetails": {},
   "newGroup": "Yeni grup",
   "@newGroup": {},
@@ -3176,6 +3176,6 @@
       }
     }
   },
-  "welcomeText": "Hey Hey 👋 Karşınızda Chatsi. https://matrix.org ile uyumlu herhangi bir homeserver'a giriş yapabilirsiniz. Ve herkesle konuşabilirsiniz. Bu koca bir merkeziyetsiz mesajlaşma ağı!",
+  "welcomeText": "Hey Hey 👋 Karşınızda Rayka. https://matrix.org ile uyumlu herhangi bir homeserver'a giriş yapabilirsiniz. Ve herkesle konuşabilirsiniz. Bu koca bir merkeziyetsiz mesajlaşma ağı!",
   "@welcomeText": {}
 }

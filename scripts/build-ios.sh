@@ -16,7 +16,7 @@ FLUFFYCHAT_ORIG_TEAM="4NXF6Z997G"
 ### Rotate IDs ###
 [ -n "${FLUFFYCHAT_NEW_GROUP}" ] && {
 	# App group IDs
-	sed -i "" "s/group.${FLUFFYCHAT_ORIG_GROUP}.app/group.${FLUFFYCHAT_NEW_GROUP}.app/g" "ios/Chatsi Share/Chatsi Share.entitlements"
+	sed -i "" "s/group.${FLUFFYCHAT_ORIG_GROUP}.app/group.${FLUFFYCHAT_NEW_GROUP}.app/g" "ios/Rayka Share/Rayka Share.entitlements"
 	sed -i "" "s/group.${FLUFFYCHAT_ORIG_GROUP}.app/group.${FLUFFYCHAT_NEW_GROUP}.app/g" "ios/Runner/Runner.entitlements"
 	sed -i "" "s/group.${FLUFFYCHAT_ORIG_GROUP}.app/group.${FLUFFYCHAT_NEW_GROUP}.app/g" "ios/Runner.xcodeproj/project.pbxproj"
 	# Bundle identifiers
@@ -35,7 +35,7 @@ If something later in the build explodes, and looks possibly related to App IDs:
     - Ask it to repair the certificates/register app IDs/etc
 2. Fix it yourself
     - Go to https://developer.apple.com/account/resources/identifiers/list
-    - Ensure that Xcode created the App ID successfully (for fluffychat.app and fluffychat.app.Chatsi-Share)
+    - Ensure that Xcode created the App ID successfully (for fluffychat.app and fluffychat.app.Rayka-Share)
     - Under "App Groups", make sure it registered your group
     - Back "App IDs", check that the App Group was added to each App ID's entitlements
 EOHELP

@@ -7,11 +7,11 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 Future<Client> prepareTestClient({
   bool loggedIn = false,
   Uri? homeserver,
-  String id = 'Chatsi Widget Test',
+  String id = 'Rayka Widget Test',
 }) async {
   homeserver ??= Uri.parse('https://fakeserver.notexisting');
   final client = Client(
-    'Chatsi Widget Tests',
+    'Rayka Widget Tests',
     httpClient: FakeMatrixApi()
       ..api['GET']!['/.well-known/matrix/client'] = (req) => {},
     verificationMethods: {

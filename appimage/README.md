@@ -1,6 +1,6 @@
-# Chatsi AppImage
+# Rayka AppImage
 
-Chatsi is provided as AppImage too. To Download, visit fluffychat.im.
+Rayka is provided as AppImage too. To Download, visit fluffychat.im.
 
 ## Building
 
@@ -10,15 +10,15 @@ Chatsi is provided as AppImage too. To Download, visit fluffychat.im.
 flutter build linux
 
 # copy binaries to appimage dir
-cp -r build/linux/{x64,arm64}/release/bundle appimage/Chatsi.AppDir
+cp -r build/linux/{x64,arm64}/release/bundle appimage/Rayka.AppDir
 cd appimage
 
 # prepare AppImage files
-cp Chatsi.desktop Chatsi.AppDir/
-mkdir -p Chatsi.AppDir/usr/share/icons
-#cp ../assets/logo.svg Chatsi.AppDir/fluffychat.svg
-cp AppRun Chatsi.AppDir
+cp Rayka.desktop Rayka.AppDir/
+mkdir -p Rayka.AppDir/usr/share/icons
+#cp ../assets/logo.svg Rayka.AppDir/fluffychat.svg
+cp AppRun Rayka.AppDir
 
 # build the AppImage
-appimagetool Chatsi.AppDir
+appimagetool Rayka.AppDir
 ```

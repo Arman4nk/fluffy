@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:matrix/matrix.dart';
 
 abstract class AppConfig {
-  static String _applicationName = 'Chatsi';
+  static String _applicationName = 'Rayka';
 
   static String get applicationName => _applicationName;
   static String? _applicationWelcomeMessage;
@@ -32,10 +32,10 @@ abstract class AppConfig {
   static const String enablePushTutorial =
       'https://github.com/krille-chan/fluffychat/wiki/Push-Notifications-without-Google-Services';
   static const String encryptionTutorial =
-      'https://github.com/krille-chan/fluffychat/wiki/How-to-use-end-to-end-encryption-in-Chatsi';
+      'https://github.com/krille-chan/fluffychat/wiki/How-to-use-end-to-end-encryption-in-Rayka';
   static const String startChatTutorial =
-      'https://github.com/krille-chan/fluffychat/wiki/How-to-Find-Users-in-Chatsi';
-  static const String appId = 'im.fluffychat.Chatsi';
+      'https://github.com/krille-chan/fluffychat/wiki/How-to-Find-Users-in-Rayka';
+  static const String appId = 'im.fluffychat.Rayka';
   static const String appOpenUrlScheme = 'im.fluffychat';
   static String _webBaseUrl = 'https://fluffychat.im/web';
 

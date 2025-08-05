@@ -1,4 +1,4 @@
-*Thank you so much for your contribution to Chatsi ❤️❤️❤️*
+*Thank you so much for your contribution to Rayka ❤️❤️❤️*
 
 Please make sure that your Pull Request meet the following **acceptance criteria**:
 

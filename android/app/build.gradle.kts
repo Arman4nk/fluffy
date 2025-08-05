@@ -17,7 +17,7 @@ dependencies {
 }
 
 android {
-    namespace = "chat.karashab.chatsi"
+    namespace = "chat.karashab.rayka"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = "27.0.12077973"
 
@@ -53,7 +53,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "chat.karashab.chatsi"
+        applicationId = "chat.karashab.rayka"
         minSdk = 21
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode

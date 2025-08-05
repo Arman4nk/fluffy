@@ -500,7 +500,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "fluffychat": "Chatsi",
+  "fluffychat": "Rayka",
   "@fluffychat": {
     "type": "String",
     "placeholders": {}
@@ -617,7 +617,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "inviteText": "{username} vás pozval na Chatsi.\n1. Nainštalujte si Chatsi: https://fluffychat.im\n2. Zaregistrujte sa alebo sa prihláste\n3. Otvorte odkaz na pozvánku: {link}",
+  "inviteText": "{username} vás pozval na Rayka.\n1. Nainštalujte si Rayka: https://fluffychat.im\n2. Zaregistrujte sa alebo sa prihláste\n3. Otvorte odkaz na pozvánku: {link}",
   "@inviteText": {
     "type": "String",
     "placeholders": {
@@ -769,7 +769,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "noGoogleServicesWarning": "Zdá sa, že nemáte žiadne služby Googlu v telefóne. To je dobré rozhodnutie pre vaše súkromie! Ak chcete dostávať push notifikácie vo Chatsi, odporúčame používať microG: https://microg.org/.",
+  "noGoogleServicesWarning": "Zdá sa, že nemáte žiadne služby Googlu v telefóne. To je dobré rozhodnutie pre vaše súkromie! Ak chcete dostávať push notifikácie vo Rayka, odporúčame používať microG: https://microg.org/.",
   "@noGoogleServicesWarning": {
     "type": "String",
     "placeholders": {}
@@ -1068,7 +1068,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "title": "Chatsi",
+  "title": "Rayka",
   "@title": {
     "description": "Title for the application",
     "type": "String",

@@ -44,7 +44,7 @@ class ChatAccessSettingsController extends State<ChatAccessSettings> {
       joinRules.remove(JoinRules.knock);
     }
 
-    // Not yet supported in Chatsi:
+    // Not yet supported in Rayka:
     joinRules.remove(JoinRules.restricted);
     joinRules.remove(JoinRules.knockRestricted);
 

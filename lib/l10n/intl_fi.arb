@@ -1239,7 +1239,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "fluffychat": "Chatsi",
+  "fluffychat": "Rayka",
   "@fluffychat": {
     "type": "String",
     "placeholders": {}
@@ -1645,7 +1645,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "title": "Chatsi",
+  "title": "Rayka",
   "@title": {
     "description": "Title for the application",
     "type": "String",

@@ -773,7 +773,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "fluffychat": "Chatsi",
+  "fluffychat": "Rayka",
   "@fluffychat": {
     "type": "String",
     "placeholders": {}
@@ -945,7 +945,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "inviteText": "{username} вас позива у Chatsi. \n1. Инсталирајте Chatsi: https://fluffychat.im \n2. Региструјте се или пријавите \n3. Отворите везу позивнице: {link}",
+  "inviteText": "{username} вас позива у Rayka. \n1. Инсталирајте Rayka: https://fluffychat.im \n2. Региструјте се или пријавите \n3. Отворите везу позивнице: {link}",
   "@inviteText": {
     "type": "String",
     "placeholders": {
@@ -1107,7 +1107,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "newMessageInFluffyChat": "Нова порука — Chatsi",
+  "newMessageInFluffyChat": "Нова порука — Rayka",
   "@newMessageInFluffyChat": {
     "type": "String",
     "placeholders": {}
@@ -1142,7 +1142,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "noGoogleServicesWarning": "Чини се да немате Гугл услуге на телефону. То је добра одлука за вашу приватност! Да би се протурале нотификације у Chatsi, препоручујемо коришћење https://microg.org/ или https://unifiedpush.org/",
+  "noGoogleServicesWarning": "Чини се да немате Гугл услуге на телефону. То је добра одлука за вашу приватност! Да би се протурале нотификације у Rayka, препоручујемо коришћење https://microg.org/ или https://unifiedpush.org/",
   "@noGoogleServicesWarning": {
     "type": "String",
     "placeholders": {}
@@ -1673,7 +1673,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "title": "Chatsi",
+  "title": "Rayka",
   "@title": {
     "description": "Title for the application",
     "type": "String",

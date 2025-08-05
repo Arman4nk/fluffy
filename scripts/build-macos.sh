@@ -30,4 +30,4 @@ FLUFFYCHAT_ORIG_TEAM="4NXF6Z997G"
 ### Make release build ###
 flutter build macos --release
 
-echo "Build build/macos/Build/Products/Release/Chatsi.app"
+echo "Build build/macos/Build/Products/Release/Rayka.app"

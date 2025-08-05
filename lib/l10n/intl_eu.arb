@@ -518,7 +518,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "fluffychat": "Chatsi",
+  "fluffychat": "Rayka",
   "@fluffychat": {
     "type": "String",
     "placeholders": {}
@@ -1134,7 +1134,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "title": "Chatsi",
+  "title": "Rayka",
   "@title": {
     "description": "Title for the application",
     "type": "String",
@@ -2324,7 +2324,7 @@
   "@hydrate": {},
   "pleaseEnterRecoveryKeyDescription": "Mezu zaharrak ikusi ahal izateko, sartu aurreko saioan sortu zen berreskuratze-gakoa. Berreskuratze-gakoa EZ da zure pasahitza.",
   "@pleaseEnterRecoveryKeyDescription": {},
-  "indexedDbErrorLong": "Mezuen artxibatzea ez dago defektuz gaituta modu pribatua erabiltzean.\nGaitzeko:\n - about:config\n - dom.indexedDB.privateBrowsing.enabled aukerak true erakutsi dezala\nBestela ezin da Chatsi erabili.",
+  "indexedDbErrorLong": "Mezuen artxibatzea ez dago defektuz gaituta modu pribatua erabiltzean.\nGaitzeko:\n - about:config\n - dom.indexedDB.privateBrowsing.enabled aukerak true erakutsi dezala\nBestela ezin da Rayka erabili.",
   "@indexedDbErrorLong": {},
   "storeSecurlyOnThisDevice": "Gorde gailu honetan modu seguruan",
   "@storeSecurlyOnThisDevice": {},
@@ -2372,7 +2372,7 @@
   "@newGroup": {},
   "enterSpace": "Sartu gunera",
   "@enterSpace": {},
-  "appearOnTopDetails": "Aplikazioa goikaldean agertzea baimentzen du (ez da beharrezkoa Chatsi deitzeko kontutzat ezarri baduzu)",
+  "appearOnTopDetails": "Aplikazioa goikaldean agertzea baimentzen du (ez da beharrezkoa Rayka deitzeko kontutzat ezarri baduzu)",
   "@appearOnTopDetails": {},
   "screenSharingTitle": "pantaila-partekatzea",
   "@screenSharingTitle": {},
@@ -2382,7 +2382,7 @@
   "@callingPermissions": {},
   "callingAccount": "Deitzen ari den kontua",
   "@callingAccount": {},
-  "callingAccountDetails": "Baimendu Chatsi Android gailuko telefono-markagailua erabiltzea.",
+  "callingAccountDetails": "Baimendu Rayka Android gailuko telefono-markagailua erabiltzea.",
   "@callingAccountDetails": {},
   "appearOnTop": "Gainean erakutsi",
   "@appearOnTop": {},
@@ -3126,7 +3126,7 @@
   "@blur": {},
   "continueText": "Jarraitu",
   "@continueText": {},
-  "welcomeText": "Ieup 👋 Ongi etorri Chatsi-era. https://matrix.org-rekin bateragarria den edozein zerbitzaritan hasi dezakezu saioa eta edonorekin txateatu. Mezularitza-sare deszentralizatu eraraldoia da!",
+  "welcomeText": "Ieup 👋 Ongi etorri Rayka-era. https://matrix.org-rekin bateragarria den edozein zerbitzaritan hasi dezakezu saioa eta edonorekin txateatu. Mezularitza-sare deszentralizatu eraraldoia da!",
   "@welcomeText": {},
   "contactServerAdmin": "Jarri harremanetan zerbitzariaren administratzailearekin",
   "@contactServerAdmin": {},

@@ -25,7 +25,7 @@ labels: test
 	- [ ] iOS
 	- [ ] Web
 	- [ ] Linux
-7. Sharing texts/files/images from other apps to Chatsi works:
+7. Sharing texts/files/images from other apps to Rayka works:
 	- [ ] Android
 	- [ ] iOS
 8. Login with single sign on works:
