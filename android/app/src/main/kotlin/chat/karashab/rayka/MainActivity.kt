@@ -1,8 +1,5 @@
-<<<<<<<< HEAD:android/app/src/main/kotlin/chat/karashob/rayka/MainActivity.kt
-package chat.karashob.rayka
-========
-package chat.karashob.rayka
->>>>>>>> main:android/app/src/main/kotlin/chat/karashob/rayka/MainActivity.kt
+package chat.karashab.rayka
+
 
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
