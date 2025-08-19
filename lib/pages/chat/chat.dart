@@ -1277,6 +1277,7 @@ class ChatController extends State<ChatPageWithRoom>
         }
       });
     }
+    
     final callType = await showModalActionPopup<CallType>(
       context: context,
       title: L10n.of(context).warning,
@@ -1295,15 +1296,30 @@ class ChatController extends State<ChatPageWithRoom>
         ),
       ],
     );
+    
     if (callType == null) return;
 
     final voipPlugin = Matrix.of(context).voipPlugin;
+    
+    if (voipPlugin == null) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('VoIP plugin is not available. Please enable experimental VoIP in settings.'),
+          ),
+        );
+      }
+      return;
+    }
+    
     try {
-      await voipPlugin!.voip.inviteToCall(room, callType);
+      await voipPlugin.voip.inviteToCall(room, callType);
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.toLocalizedString(context))),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.toLocalizedString(context))),
+        );
+      }
     }
   }
 

@@ -38,18 +38,47 @@ class VoipPlugin with WidgetsBindingObserver implements WebRTCDelegate {
   }
 
   void addCallingOverlay(String callId, CallSession call) {
-    final context =
-        kIsWeb ? ChatList.contextForVoip! : this.context; // web is weird
+    BuildContext? overlayContext;
+    
+    // Always try ChatList.contextForVoip first (it has proper overlay access)
+    if (ChatList.contextForVoip != null) {
+      overlayContext = ChatList.contextForVoip;
+    } else if (kIsWeb) {
+      overlayContext = ChatList.contextForVoip;
+    } else {
+      overlayContext = this.context;
+    }
+    
+    // Fallback if context is not available
+    if (overlayContext == null) {
+      Logs().e('[VOIP] No context available for overlay');
+      return;
+    }
+
+    // Check if the context has an Overlay
+    try {
+      Overlay.of(overlayContext);
+    } catch (e) {
+      Logs().e('[VOIP] Context does not have Overlay: $e');
+      return;
+    }
 
     if (overlayEntry != null) {
-      Logs().e('[VOIP] addCallingOverlay: The call session already exists?');
-      overlayEntry!.remove();
+      try {
+        overlayEntry!.remove();
+      } catch (e) {
+        // Ignore error when removing overlay
+      }
+      overlayEntry = null;
     }
+    
+    Logs().i('[VOIP] Adding calling overlay for call: $callId');
+    
     // Overlay.of(context) is broken on web
     // falling back on a dialog
     if (kIsWeb) {
       showDialog(
-        context: context,
+        context: overlayContext,
         builder: (context) => Calling(
           context: context,
           client: client,
@@ -59,19 +88,30 @@ class VoipPlugin with WidgetsBindingObserver implements WebRTCDelegate {
         ),
       );
     } else {
-      overlayEntry = OverlayEntry(
-        builder: (_) => Calling(
-          context: context,
-          client: client,
-          callId: callId,
-          call: call,
-          onClear: () {
-            overlayEntry?.remove();
-            overlayEntry = null;
-          },
-        ),
-      );
-      Overlay.of(context).insert(overlayEntry!);
+      try {
+        overlayEntry = OverlayEntry(
+          builder: (_) => Calling(
+            context: overlayContext!,
+            client: client,
+            callId: callId,
+            call: call,
+            onClear: () {
+              if (overlayEntry != null) {
+                try {
+                  overlayEntry!.remove();
+                } catch (e) {
+                  // Ignore error when removing overlay
+                }
+                overlayEntry = null;
+              }
+            },
+          ),
+        );
+        Overlay.of(overlayContext).insert(overlayEntry!);
+      } catch (e) {
+        Logs().e('[VOIP] Error creating overlay: $e');
+        overlayEntry = null;
+      }
     }
   }
 
@@ -134,13 +174,24 @@ class VoipPlugin with WidgetsBindingObserver implements WebRTCDelegate {
   @override
   Future<void> handleCallEnded(CallSession session) async {
     if (overlayEntry != null) {
-      overlayEntry!.remove();
+      try {
+        overlayEntry!.remove();
+      } catch (e) {
+        Logs().e('[VOIP] Error removing overlay: $e');
+      }
       overlayEntry = null;
+      
       if (PlatformInfos.isAndroid) {
-        FlutterForegroundTask.setOnLockScreenVisibility(false);
-        FlutterForegroundTask.stopService();
-        final wasForeground = matrix.store.getString('wasForeground');
-        wasForeground == 'false' ? FlutterForegroundTask.minimizeApp() : null;
+        try {
+          FlutterForegroundTask.setOnLockScreenVisibility(false);
+          FlutterForegroundTask.stopService();
+          final wasForeground = matrix.store.getString('wasForeground');
+          if (wasForeground == 'false') {
+            FlutterForegroundTask.minimizeApp();
+          }
+        } catch (e) {
+          // Ignore foreground task errors
+        }
       }
     }
   }
@@ -167,11 +218,13 @@ class VoipPlugin with WidgetsBindingObserver implements WebRTCDelegate {
 
   @override
   // TODO: implement keyProvider
-  EncryptionKeyProvider? get keyProvider => throw UnimplementedError();
+  EncryptionKeyProvider? get keyProvider => null;
 
   @override
-  Future<void> registerListeners(CallSession session) {
-    // TODO: implement registerListeners
-    throw UnimplementedError();
+  Future<void> registerListeners(CallSession session) async {
+    // Basic implementation - can be enhanced later
+    session.onCallStateChanged.stream.listen((state) {
+      Logs().i('Call state changed: $state');
+    });
   }
 }

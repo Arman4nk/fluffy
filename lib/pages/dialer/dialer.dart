@@ -41,16 +41,56 @@ class _StreamView extends StatelessWidget {
     this.wrappedStream, {
     this.mainView = false,
     required this.matrixClient,
+    required this.call,
   });
 
   final WrappedMediaStream wrappedStream;
   final Client matrixClient;
+  final CallSession call;
 
   final bool mainView;
 
-  Uri? get avatarUrl => wrappedStream.getUser().avatarUrl;
+  Uri? get avatarUrl {
+    // For the main view when video is muted, show the other person's avatar
+    if (mainView && videoMuted) {
+      // Get the other person's avatar from the room
+      final otherUserId = _getOtherUserId();
+      if (otherUserId != null) {
+        final participants = call.room.getParticipants();
+        try {
+          final otherUser = participants.firstWhere(
+            (user) => user.id == otherUserId,
+          );
+          return otherUser.avatarUrl;
+        } catch (e) {
+          // User not found, fall back to stream user
+        }
+      }
+    }
+    // For local streams or other cases, use the stream's user info
+    return wrappedStream.getUser().avatarUrl;
+  }
 
-  String? get displayName => wrappedStream.displayName;
+  String? get displayName {
+    // For the main view when video is muted, show the other person's name
+    if (mainView && videoMuted) {
+      // Get the other person's name from the room
+      final otherUserId = _getOtherUserId();
+      if (otherUserId != null) {
+        final participants = call.room.getParticipants();
+        try {
+          final otherUser = participants.firstWhere(
+            (user) => user.id == otherUserId,
+          );
+          return otherUser.calcDisplayname();
+        } catch (e) {
+          // User not found, fall back to stream user
+        }
+      }
+    }
+    // For local streams or other cases, use the stream's display name
+    return wrappedStream.displayName;
+  }
 
   String get avatarName => wrappedStream.avatarName;
 
@@ -66,6 +106,19 @@ class _StreamView extends StatelessWidget {
 
   bool get isScreenSharing =>
       wrappedStream.purpose == SDPStreamMetadataPurpose.Screenshare;
+
+  String? _getOtherUserId() {
+    // Get the other user ID (not the current user)
+    final currentUserId = matrixClient.userID;
+    final participants = call.room.getParticipants();
+    
+    for (final participant in participants) {
+      if (participant.id != currentUserId) {
+        return participant.id;
+      }
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -502,6 +555,7 @@ class MyCallingPage extends State<Calling> {
             primaryStream,
             mainView: true,
             matrixClient: widget.client,
+            call: call,
           ),
         ),
       );
@@ -526,7 +580,7 @@ class MyCallingPage extends State<Calling> {
           width: _localVideoWidth,
           height: _localVideoHeight,
           child:
-              _StreamView(remoteUserMediaStream!, matrixClient: widget.client),
+              _StreamView(remoteUserMediaStream!, matrixClient: widget.client, call: call),
         ),
       );
       secondaryStreamViews.add(const SizedBox(height: 10));
@@ -539,7 +593,7 @@ class MyCallingPage extends State<Calling> {
         SizedBox(
           width: _localVideoWidth,
           height: _localVideoHeight,
-          child: _StreamView(localStream, matrixClient: widget.client),
+          child: _StreamView(localStream, matrixClient: widget.client, call: call),
         ),
       );
       secondaryStreamViews.add(const SizedBox(height: 10));
@@ -553,6 +607,7 @@ class MyCallingPage extends State<Calling> {
           child: _StreamView(
             call.remoteUserMediaStream!,
             matrixClient: widget.client,
+            call: call,
           ),
         ),
       );

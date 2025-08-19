@@ -399,12 +399,16 @@ class ChatListController extends State<ChatList>
 
   @override
   void initState() {
-    _initReceiveSharingIntent();
-
-    scrollController.addListener(_onScroll);
-    _waitForFirstSync();
+    super.initState();
+    ChatList.contextForVoip = context;
+    _checkTorBrowser();
     _hackyWebRTCFixForWeb();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      _initReceiveSharingIntent();
+
+      scrollController.addListener(_onScroll);
+      _waitForFirstSync();
+      
       if (mounted) {
         searchServer =
             Matrix.of(context).store.getString(_serverStoreNamespace);
@@ -417,14 +421,13 @@ class ChatListController extends State<ChatList>
         Theme.of(context).appBarTheme.systemOverlayStyle!,
       );
     });
-
-    _checkTorBrowser();
-
-    super.initState();
   }
 
   @override
   void dispose() {
+    if (ChatList.contextForVoip == context) {
+      ChatList.contextForVoip = null;
+    }
     _intentDataStreamSubscription?.cancel();
     _intentFileStreamSubscription?.cancel();
     _intentUriStreamSubscription?.cancel();

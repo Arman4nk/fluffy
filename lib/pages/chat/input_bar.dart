@@ -414,41 +414,41 @@ class _InputBarState extends State<InputBar> {
       debounceDuration: const Duration(milliseconds: 50),
       builder: (context, controller, focusNode) {
         return TextField(
-          controller: controller,
-          focusNode: focusNode,
+        controller: controller,
+        focusNode: focusNode,
           readOnly: widget.readOnly,
           textDirection: _inputDirection,
-          contextMenuBuilder: (c, e) => markdownContextBuilder(c, e, controller),
-          contentInsertionConfiguration: ContentInsertionConfiguration(
-            onContentInserted: (KeyboardInsertedContent content) {
-              final data = content.data;
-              if (data == null) return;
-              final file = MatrixFile(
-                mimeType: content.mimeType,
-                bytes: data,
-                name: content.uri.split('/').last,
-              );
+        contextMenuBuilder: (c, e) => markdownContextBuilder(c, e, controller),
+        contentInsertionConfiguration: ContentInsertionConfiguration(
+          onContentInserted: (KeyboardInsertedContent content) {
+            final data = content.data;
+            if (data == null) return;
+            final file = MatrixFile(
+              mimeType: content.mimeType,
+              bytes: data,
+              name: content.uri.split('/').last,
+            );
               widget.room.sendFileEvent(
-                file,
-                shrinkImageMaxDimension: 1600,
-              );
-            },
-          ),
+              file,
+              shrinkImageMaxDimension: 1600,
+            );
+          },
+        ),
           minLines: widget.minLines,
           maxLines: widget.maxLines,
           keyboardType: widget.keyboardType!,
           textInputAction: widget.textInputAction,
           autofocus: widget.autofocus!,
-          inputFormatters: [
-            LengthLimitingTextInputFormatter((maxPDUSize / 3).floor()),
-          ],
-          onSubmitted: (text) {
+        inputFormatters: [
+          LengthLimitingTextInputFormatter((maxPDUSize / 3).floor()),
+        ],
+        onSubmitted: (text) {
             widget.onSubmitted!(text);
-          },
-          maxLength:
-              AppSettings.textMessageMaxLength.getItem(Matrix.of(context).store),
+        },
+        maxLength:
+            AppSettings.textMessageMaxLength.getItem(Matrix.of(context).store),
           decoration: widget.decoration,
-          onChanged: (text) {
+        onChanged: (text) {
             String firstChar = text.trimLeft().isNotEmpty ? text.trimLeft()[0] : '';
             if (text.trim().isEmpty) {
               if (_inputDirection != TextDirection.rtl) {
@@ -471,8 +471,8 @@ class _InputBarState extends State<InputBar> {
               }
             }
             widget.onChanged!(text);
-          },
-          textCapitalization: TextCapitalization.sentences,
+        },
+        textCapitalization: TextCapitalization.sentences,
         );
       },
       suggestionsCallback: widget.getSuggestions,
