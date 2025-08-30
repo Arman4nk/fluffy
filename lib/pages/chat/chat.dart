@@ -41,6 +41,7 @@ import 'package:fluffychat/widgets/matrix.dart';
 import 'package:fluffychat/widgets/share_scaffold_dialog.dart';
 import '../../utils/account_bundles.dart';
 import '../../utils/localized_exception_extension.dart';
+import '../../utils/bot_utils.dart';
 import 'send_file_dialog.dart';
 import 'send_location_dialog.dart';
 
@@ -168,6 +169,8 @@ class ChatController extends State<ChatPageWithRoom>
   String pendingText = '';
 
   bool showEmojiPicker = false;
+  bool showCustomKeyboard = true;
+  bool botInteractionStarted = false;
 
   void recreateChat() async {
     final room = this.room;
@@ -337,6 +340,20 @@ class ChatController extends State<ChatPageWithRoom>
     if (kIsWeb) {
       onFocusSub = html.window.onFocus.listen((_) => setReadMarker());
     }
+    
+    // Initialize bot interaction state after timeline is loaded
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Timer(const Duration(milliseconds: 500), () {
+        if (mounted && 
+            BotUtils.isDirectMessageWithBot(room) && 
+            timeline != null &&
+            BotUtils.hasBotSentAnyMessages(room, timeline)) {
+          setState(() {
+            botInteractionStarted = true;
+          });
+        }
+      });
+    });
   }
 
   final Set<String> expandedEventIds = {};
@@ -410,6 +427,14 @@ class ChatController extends State<ChatPageWithRoom>
   void updateView() {
     if (!mounted) return;
     setReadMarker();
+    
+    // Check if bot has sent any messages and update the interaction state
+    if (BotUtils.isDirectMessageWithBot(room) && 
+        !botInteractionStarted && 
+        BotUtils.hasBotSentAnyMessages(room, timeline)) {
+      botInteractionStarted = true;
+    }
+    
     setState(() {});
   }
 
@@ -725,13 +750,72 @@ class ChatController extends State<ChatPageWithRoom>
     } else {
       inputFocus.unfocus();
     }
-    setState(() => showEmojiPicker = !showEmojiPicker);
+    setState(() {
+      showEmojiPicker = !showEmojiPicker;
+      if (showEmojiPicker) {
+        showCustomKeyboard = false;
+      }
+    });
   }
 
   void _inputFocusListener() {
     if (showEmojiPicker && inputFocus.hasFocus) {
       setState(() => showEmojiPicker = false);
     }
+  }
+
+  void hideCustomKeyboard() {
+    setState(() => showCustomKeyboard = false);
+  }
+
+  void toggleCustomKeyboard() {
+    setState(() {
+      showCustomKeyboard = !showCustomKeyboard;
+      if (showCustomKeyboard) {
+        showEmojiPicker = false;
+      }
+    });
+  }
+
+  bool get shouldShowCustomKeyboard {
+    if (!BotUtils.isDirectMessageWithBot(room)) return false;
+    final lastBotMessage = BotUtils.getLastBotMessageWithKeyboard(room, timeline);
+    return lastBotMessage != null;
+  }
+
+  bool get shouldShowBotStartButton {
+    if (!BotUtils.isDirectMessageWithBot(room)) return false;
+    if (botInteractionStarted) return false;
+    
+    // Check if there are any bot messages in the timeline
+    final hasBotMessages = BotUtils.hasBotSentAnyMessages(room, timeline);
+    return !hasBotMessages;
+  }
+
+  bool get shouldHideComposerForBot {
+    if (!BotUtils.isDirectMessageWithBot(room)) return false;
+    return shouldShowBotStartButton;
+  }
+
+  void startBotInteraction() async {
+    if (!BotUtils.isDirectMessageWithBot(room)) return;
+    setState(() {
+      botInteractionStarted = true;
+    });
+    await room.sendTextEvent('!start');
+  }
+
+  void onCustomKeyboardButtonPressed(String callbackData) async {
+    if (callbackData.trim().isEmpty) return;
+    
+    // Send the callback data as a text message
+    await room.sendTextEvent(callbackData);
+  }
+
+  Map<String, dynamic>? get customKeyboardData {
+    final lastBotMessage = BotUtils.getLastBotMessageWithKeyboard(room, timeline);
+    if (lastBotMessage == null) return null;
+    return BotUtils.extractKeyboardData(lastBotMessage);
   }
 
   void sendLocationAction() async {

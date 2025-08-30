@@ -41,6 +41,36 @@ class ChatInputRow extends StatelessWidget {
       foregroundColor: theme.colorScheme.onTertiaryContainer,
     );
 
+    // If this is a bot chat and we should hide the composer, show only the start button
+    if (controller.shouldHideComposerForBot) {
+      return Container(
+        width: double.infinity,
+        // padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: SizedBox(
+          width: double.infinity,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: theme.colorScheme.surfaceContainerHighest,
+              foregroundColor: theme.colorScheme.onSurfaceVariant,
+              elevation: 0,
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            onPressed: controller.startBotInteraction,
+            child: Text(
+              L10n.of(context).start,
+              style: theme.textTheme.titleMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -223,6 +253,25 @@ class ChatInputRow extends StatelessWidget {
                         ),
                       ),
                     ],
+                  ),
+                ),
+
+              if (controller.shouldShowCustomKeyboard)
+                Container(
+                  height: height,
+                  width: height,
+                  alignment: Alignment.center,
+                  child: IconButton(
+                    tooltip: controller.showCustomKeyboard 
+                        ? 'Hide custom keyboard' 
+                        : 'Show custom keyboard',
+                    color: theme.colorScheme.onPrimaryContainer,
+                    icon: Icon(
+                      controller.showCustomKeyboard
+                          ? Icons.keyboard_hide
+                          : Icons.keyboard_alt_outlined,
+                    ),
+                    onPressed: controller.toggleCustomKeyboard,
                   ),
                 ),
               Container(

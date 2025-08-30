@@ -24,6 +24,8 @@ import 'package:fluffychat/widgets/matrix.dart';
 import 'package:fluffychat/widgets/mxc_image.dart';
 import 'package:fluffychat/widgets/unread_rooms_badge.dart';
 import '../../utils/stream_extension.dart';
+import '../../utils/bot_utils.dart';
+import '../../widgets/custom_keyboard.dart';
 import 'chat_emoji_picker.dart';
 import 'chat_input_row.dart';
 
@@ -367,6 +369,15 @@ class ChatView extends StatelessWidget {
                                             ReplyDisplay(controller),
                                             ChatInputRow(controller),
                                             ChatEmojiPicker(controller),
+                                            if (controller.showCustomKeyboard &&
+                                                controller.customKeyboardData != null)
+                                              CustomKeyboard(
+                                                buttons: BotUtils.parseKeyboardButtons(
+                                                    controller.customKeyboardData!,),
+                                                onButtonPressed: controller.onCustomKeyboardButtonPressed,
+                                                placeholder: BotUtils.getInputPlaceholder(
+                                                    controller.customKeyboardData!,),
+                                              ),
                                           ],
                                         ),
                                 ),
