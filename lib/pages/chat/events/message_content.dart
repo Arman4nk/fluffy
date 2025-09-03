@@ -8,8 +8,10 @@ import 'package:fluffychat/l10n/l10n.dart';
 import 'package:fluffychat/pages/chat/events/video_player.dart';
 import 'package:fluffychat/utils/adaptive_bottom_sheet.dart';
 import 'package:fluffychat/utils/date_time_extension.dart';
+import 'package:fluffychat/utils/inline_button_models.dart' as models;
 import 'package:fluffychat/utils/matrix_sdk_extensions/matrix_locals.dart';
 import 'package:fluffychat/widgets/avatar.dart';
+import 'package:fluffychat/widgets/inline_keyboard.dart';
 import 'package:fluffychat/widgets/matrix.dart';
 import '../../../config/app_config.dart';
 import '../../../utils/event_checkbox_extension.dart';
@@ -280,33 +282,51 @@ class MessageContent extends StatelessWidget {
             final bigEmotes = event.onlyEmotes &&
                 event.numberEmotes > 0 &&
                 event.numberEmotes <= 3;
+            final htmlMessage = HtmlMessage(
+              html: html,
+              textColor: textColor,
+              room: event.room,
+              fontSize: AppConfig.fontSizeFactor *
+                  AppConfig.messageFontSize *
+                  (bigEmotes ? 5 : 1),
+              limitHeight: !selected,
+              linkStyle: TextStyle(
+                color: linkColor,
+                fontSize:
+                    AppConfig.fontSizeFactor * AppConfig.messageFontSize,
+                decoration: TextDecoration.underline,
+                decorationColor: linkColor,
+              ),
+              onOpen: (url) => UrlLauncher(context, url.url).launchUrl(),
+              eventId: event.eventId,
+              checkboxCheckedEvents: event.aggregatedEvents(
+                timeline,
+                EventCheckboxRoomExtension.relationshipType,
+              ),
+            );
+
+            // Check for inline buttons in the event content
+            final inlineKeyboard = _extractInlineKeyboard(event);
+            
             return Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 16,
                 vertical: 8,
               ),
-              child: HtmlMessage(
-                html: html,
-                textColor: textColor,
-                room: event.room,
-                fontSize: AppConfig.fontSizeFactor *
-                    AppConfig.messageFontSize *
-                    (bigEmotes ? 5 : 1),
-                limitHeight: !selected,
-                linkStyle: TextStyle(
-                  color: linkColor,
-                  fontSize:
-                      AppConfig.fontSizeFactor * AppConfig.messageFontSize,
-                  decoration: TextDecoration.underline,
-                  decorationColor: linkColor,
-                ),
-                onOpen: (url) => UrlLauncher(context, url.url).launchUrl(),
-                eventId: event.eventId,
-                checkboxCheckedEvents: event.aggregatedEvents(
-                  timeline,
-                  EventCheckboxRoomExtension.relationshipType,
-                ),
-              ),
+              child: inlineKeyboard.hasButtons
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      htmlMessage,
+                      InlineKeyboardWidget(
+                        keyboardData: inlineKeyboard,
+                        event: event,
+                        timeline: timeline,
+                      ),
+                    ],
+                  )
+                : htmlMessage,
             );
         }
       case EventTypes.CallInvite:
@@ -343,6 +363,19 @@ class MessageContent extends StatelessWidget {
           },
         );
     }
+  }
+
+  /// Extract inline keyboard data from event content
+  models.InlineKeyboard _extractInlineKeyboard(Event event) {
+    try {
+      final content = event.content;
+      if (content.containsKey('inline')) {
+        return models.InlineKeyboard.fromJson(content);
+      }
+    } catch (e) {
+      // If parsing fails, return empty keyboard
+    }
+    return const models.InlineKeyboard(buttons: []);
   }
 }
 

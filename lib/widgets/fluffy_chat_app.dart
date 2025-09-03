@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:matrix/matrix.dart';
+import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:fluffychat/config/routes.dart';
@@ -49,9 +51,19 @@ class FluffyChatApp extends StatelessWidget {
         darkTheme:
             FluffyThemes.buildTheme(context, Brightness.dark, primaryColor),
         scrollBehavior: CustomScrollBehavior(),
-        localizationsDelegates: L10n.localizationsDelegates,
-        supportedLocales: L10n.supportedLocales,
-        locale: const Locale('fa'),
+        localizationsDelegates: [
+          ...L10n.localizationsDelegates,
+          PersianMaterialLocalizations.delegate,
+          PersianCupertinoLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: [
+          ...L10n.supportedLocales,
+          const Locale('fa', 'IR'),
+        ],
+        locale: const Locale('fa', 'IR'),
         routerConfig: router,
         debugShowCheckedModeBanner: false,
         builder: (context, child) => AppLockWidget(
